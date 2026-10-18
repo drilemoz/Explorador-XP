@@ -1,3 +1,13 @@
+## 0.1.0-alpha.135 (2026-10-17)
+
+- APK: nome do aplicativo ampliado de **16 sp para 21 sp**, com versão do arquivo retirada da linha do título.
+- APK: uma única linha com três selos nesta ordem: **versão instalada (azul)**, **status (verde/azul/vermelho)**, **versão do APK (mesma cor do status)**.
+- Linha de selos com rolagem horizontal apenas quando o espaço ou o tamanho da fonte não permitir mostrar os três completamente; sem quebra de linha.
+- Acessibilidade: descrições individuais para distinguir versão instalada, situação e versão do arquivo, mesmo se as duas versões forem iguais.
+- Quando ainda não existe aplicativo instalado, mostra apenas o status de novo aplicativo e a versão do arquivo.
+- Ações do APK preservadas em **Abrir, Gerenciar, Desinstalar, Instalar/Atualizar**. Compatibilidade, assinaturas e fluxo de downgrade sem mudanças.
+- Validação estrutural e integridade do ZIP aprovadas; compilação Android e inspeção no aparelho ainda pendentes.
+
 ## 0.1.0-alpha.134 (2026-10-16)
 
 - APK: o texto fixo **Versão Instalada:** foi removido do cartão principal. A linha abaixo do nome agora mostra apenas o selo azul da versão instalada e, ao lado, o selo de status (**Atualização**, **Atual** ou **Anterior**) com a cor correspondente.

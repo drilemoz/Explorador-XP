@@ -1,11 +1,12 @@
 {
-  "version_build": "0.1.0-alpha.134",
-  "version_code": 134,
-  "manager_version": "0.1.0-alpha.134",
+  "version_build": "0.1.0-alpha.135",
+  "version_code": 135,
+  "manager_version": "0.1.0-alpha.135",
   "notes": [
-    "APK: selo da versão do arquivo à direita do nome e linha inferior com a versão instalada em azul ao lado do status colorido.",
-    "Status por relação: atualização/novo verde, igual azul, anterior vermelho; sem pacote, certificado ou texto fixo \"Versão Instalada:\" no resumo.",
-    "Ações de APK instalado: Abrir, Gerenciar, Desinstalar, Instalar/Atualizar; segurança da instalação preservada.",
-    "Build Gradle/Android e inspeção visual em dispositivo ainda pendentes."
+    "APK: nome do aplicativo ampliado de 16 sp para 21 sp e selo da versão do arquivo retirado da linha do título.",
+    "Linha única: versão instalada azul, status adaptado e versão do APK com cor correspondente; rolagem horizontal se necessário.",
+    "Acessibilidade: descrição independente dos três selos; quando não instalado, status e versão do arquivo.",
+    "Ações preservadas: Abrir, Gerenciar, Desinstalar, Instalar/Atualizar; segurança do instalador mantida.",
+    "Build Android e inspeção visual em dispositivo ainda pendentes."
   ]
 }

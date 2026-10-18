@@ -80,6 +80,17 @@ apk_support = (root/'app/src/main/java/com/exploradorxp/app/ApkInspectorSupport.
 assert 'apkPlainVersionName(info.versionName)' in apk_ui
 assert 'apkPlainVersionName(info.installedVersion)' in apk_ui
 assert '"No APK:' not in apk_ui and '"Certificado:' not in apk_ui
+# Card de APK da alpha.135: nome ampliado e três selos na mesma faixa.
+card = apk_ui[apk_ui.index('// Cabeçalho em duas faixas'):apk_ui.index('Spacer(Modifier.height(6.dp))', apk_ui.index('// Cabeçalho em duas faixas'))]
+assert 'fontSize = 21.sp' in card and 'info.appName' in card
+assert 'Modifier.fillMaxWidth().horizontalScroll(rememberScrollState())' in card
+assert card.index('text = apkPlainVersionName(info.installedVersion)') < card.index('text = relationLabel,') < card.index('text = apkPlainVersionName(info.versionName)')
+assert card.index('horizontalScroll(rememberScrollState())') < card.index('text = apkPlainVersionName(info.versionName)')
+assert 'contentDescription = "Versão instalada:' in card
+assert 'contentDescription = "Situação do APK:' in card
+assert 'contentDescription = "Versão do APK:' in card
+assert 'if (info.installedVersionCode != null)' in card
+assert '"Versão Instalada:"' not in card
 assert 'text = relationLabel,' in apk_ui and 'color = relationColor,' in apk_ui
 assert apk_ui.index('label = "Abrir"') < apk_ui.index('label = "Gerenciar"') < apk_ui.index('label = "Desinstalar"')
 assert apk_ui.count('ApkCompactActionButton(') == 5  # Quatro ações + declaração.

@@ -1074,73 +1074,70 @@ private fun ApkViewer(
                     else -> "O APK foi analisado. Revise os detalhes abaixo antes de continuar."
                 }
 
-                Row(
-                    verticalAlignment = Alignment.CenterVertically,
+                // Cabeçalho em duas faixas: ícone e nome em destaque acima; os três
+                // selos permanecem lado a lado, sem quebrar linha. Em telas estreitas
+                // ou com fontes ampliadas, a faixa dos selos pode rolar horizontalmente.
+                Column(
                     modifier = Modifier
                         .fillMaxWidth()
                         .background(Color(0xFFF3F7FC), RoundedCornerShape(12.dp))
                         .border(1.dp, Color(0xFFC5D4E6), RoundedCornerShape(12.dp))
                         .padding(10.dp),
+                    verticalArrangement = Arrangement.spacedBy(9.dp),
                 ) {
-                    if (info.iconBitmap != null) {
-                        Image(
-                            bitmap = info.iconBitmap.asImageBitmap(),
-                            contentDescription = info.appName,
-                            modifier = Modifier.size(70.dp).clip(RoundedCornerShape(16.dp)),
-                            contentScale = ContentScale.Fit,
-                        )
-                    } else {
-                        Image(
-                            painter = androidx.compose.ui.res.painterResource(R.drawable.file_apk_large),
-                            contentDescription = null,
-                            modifier = Modifier.size(66.dp),
+                    Row(verticalAlignment = Alignment.CenterVertically) {
+                        if (info.iconBitmap != null) {
+                            Image(
+                                bitmap = info.iconBitmap.asImageBitmap(),
+                                contentDescription = info.appName,
+                                modifier = Modifier.size(70.dp).clip(RoundedCornerShape(16.dp)),
+                                contentScale = ContentScale.Fit,
+                            )
+                        } else {
+                            Image(
+                                painter = androidx.compose.ui.res.painterResource(R.drawable.file_apk_large),
+                                contentDescription = null,
+                                modifier = Modifier.size(66.dp),
+                            )
+                        }
+                        Spacer(Modifier.width(12.dp))
+                        Text(
+                            text = info.appName,
+                            modifier = Modifier.weight(1f),
+                            fontWeight = FontWeight.Bold,
+                            fontSize = 21.sp,
+                            lineHeight = 25.sp,
+                            color = Color(0xFF152A48),
+                            maxLines = 2,
+                            overflow = TextOverflow.Ellipsis,
                         )
                     }
-                    Spacer(Modifier.width(10.dp))
-                    Column(Modifier.weight(1f), verticalArrangement = Arrangement.spacedBy(8.dp)) {
-                        // Mantém a versão do APK à DIREITA do nome e preserva o nome
-                        // em largura flexível para aparelhos com telas estreitas.
-                        Row(
-                            modifier = Modifier.fillMaxWidth(),
-                            verticalAlignment = Alignment.CenterVertically,
-                            horizontalArrangement = Arrangement.spacedBy(7.dp),
-                        ) {
-                            Text(
-                                info.appName,
-                                modifier = Modifier.weight(1f),
-                                fontWeight = FontWeight.Bold,
-                                fontSize = 16.sp,
-                                lineHeight = 19.sp,
-                                color = Color(0xFF152A48),
-                                maxLines = 2,
-                                overflow = TextOverflow.Ellipsis,
-                            )
-                            ApkVersionPill(
-                                text = apkPlainVersionName(info.versionName),
-                                color = relationColor,
-                                modifier = Modifier.widthIn(max = 125.dp),
-                            )
-                        }
+                    Row(
+                        modifier = Modifier.fillMaxWidth().horizontalScroll(rememberScrollState()),
+                        verticalAlignment = Alignment.CenterVertically,
+                        horizontalArrangement = Arrangement.spacedBy(6.dp),
+                    ) {
                         if (info.installedVersionCode != null) {
-                            Row(
-                                modifier = Modifier.fillMaxWidth(),
-                                verticalAlignment = Alignment.CenterVertically,
-                                horizontalArrangement = Arrangement.spacedBy(6.dp),
-                            ) {
-                                ApkVersionPill(
-                                    text = apkPlainVersionName(info.installedVersion),
-                                    color = Color(0xFF256BD9),
-                                    modifier = Modifier.weight(1f, fill = false),
-                                )
-                                ApkVersionPill(
-                                    text = relationLabel,
-                                    color = relationColor,
-                                    modifier = Modifier.weight(1f, fill = false),
-                                )
-                            }
-                        } else {
-                            ApkVersionPill(text = relationLabel, color = relationColor)
+                            ApkVersionPill(
+                                text = apkPlainVersionName(info.installedVersion),
+                                color = Color(0xFF256BD9),
+                                modifier = Modifier.semantics {
+                                    contentDescription = "Versão instalada: ${apkPlainVersionName(info.installedVersion)}"
+                                },
+                            )
                         }
+                        ApkVersionPill(
+                            text = relationLabel,
+                            color = relationColor,
+                            modifier = Modifier.semantics { contentDescription = "Situação do APK: $relationLabel" },
+                        )
+                        ApkVersionPill(
+                            text = apkPlainVersionName(info.versionName),
+                            color = relationColor,
+                            modifier = Modifier.semantics {
+                                contentDescription = "Versão do APK: ${apkPlainVersionName(info.versionName)}"
+                            },
+                        )
                     }
                 }
 

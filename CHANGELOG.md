@@ -1,3 +1,11 @@
+## 0.1.0-alpha.137 (2026-10-19)
+
+- APK: os três selos do cabeçalho agora ficam **um embaixo do outro** à direita: **versão instalada**, **situação** e **versão do APK**.
+- APK: o nome do aplicativo permanece centralizado ao lado do ícone, sem texto fixo “Versão Instalada:”.
+- A cor vermelha agora identifica a **versão mais antiga**: em atualizações, o selo da versão instalada fica vermelho; em downgrades, a situação e a versão do arquivo APK ficam vermelhas.
+- Mantida a ordem das ações rápidas em **Abrir, Gerenciar, Desinstalar, Instalar/Atualizar** e preservadas as verificações de assinatura, compatibilidade e downgrade.
+- Validações locais aprovadas; build Android completo e teste físico seguem pendentes.
+
 ## 0.1.0-alpha.136 (2026-10-17)
 
 - APK: o nome do aplicativo no cartão principal ficou centralizado e cerca de 30% maior para dar mais destaque visual.

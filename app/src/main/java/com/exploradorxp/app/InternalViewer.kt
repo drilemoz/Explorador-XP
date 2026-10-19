@@ -1030,6 +1030,11 @@ private fun ApkViewer(
                     ApkVersionTone.CURRENT -> Color(0xFF256BD9) // Mesma versão instalada.
                     ApkVersionTone.OLDER -> Color(0xFFC93B3B) // APK anterior à versão instalada.
                 }
+                val installedVersionColor = when (info.versionRelation) {
+                    ApkVersionRelation.UPGRADE -> Color(0xFFC93B3B) // A versão instalada ficou antiga.
+                    ApkVersionRelation.SAME, ApkVersionRelation.DOWNGRADE -> Color(0xFF256BD9)
+                    ApkVersionRelation.NOT_INSTALLED -> Color(0xFF256BD9)
+                }
                 val installLabel = when (info.versionRelation) {
                     ApkVersionRelation.NOT_INSTALLED -> "Instalar"
                     ApkVersionRelation.UPGRADE -> "Atualizar"
@@ -1074,8 +1079,8 @@ private fun ApkViewer(
                     else -> "O APK foi analisado. Revise os detalhes abaixo antes de continuar."
                 }
 
-                // Cabeçalho com nome centralizado: a versão instalada fica abaixo do
-                // título, enquanto situação e versão do APK são empilhadas à direita.
+                // Cabeçalho com três selos empilhados: nome centralizado ao lado do
+                // ícone e, à direita, versões/situação uma abaixo da outra.
                 Row(
                     verticalAlignment = Alignment.CenterVertically,
                     modifier = Modifier
@@ -1099,38 +1104,32 @@ private fun ApkViewer(
                         )
                     }
                     Spacer(Modifier.width(12.dp))
-                    Column(
+                    Text(
+                        text = info.appName,
                         modifier = Modifier.weight(1f),
-                        horizontalAlignment = Alignment.CenterHorizontally,
-                        verticalArrangement = Arrangement.spacedBy(8.dp),
+                        textAlign = TextAlign.Center,
+                        fontWeight = FontWeight.Bold,
+                        fontSize = 27.sp,
+                        lineHeight = 31.sp,
+                        color = Color(0xFF152A48),
+                        maxLines = 2,
+                        overflow = TextOverflow.Ellipsis,
+                    )
+                    Spacer(Modifier.width(10.dp))
+                    Column(
+                        horizontalAlignment = Alignment.End,
+                        verticalArrangement = Arrangement.spacedBy(6.dp),
+                        modifier = Modifier.widthIn(min = 115.dp, max = 155.dp),
                     ) {
-                        Text(
-                            text = info.appName,
-                            modifier = Modifier.fillMaxWidth(),
-                            textAlign = TextAlign.Center,
-                            fontWeight = FontWeight.Bold,
-                            fontSize = 27.sp,
-                            lineHeight = 31.sp,
-                            color = Color(0xFF152A48),
-                            maxLines = 2,
-                            overflow = TextOverflow.Ellipsis,
-                        )
                         if (info.installedVersionCode != null) {
                             ApkVersionPill(
                                 text = apkPlainVersionName(info.installedVersion),
-                                color = Color(0xFF256BD9),
+                                color = installedVersionColor,
                                 modifier = Modifier.semantics {
                                     contentDescription = "Versão instalada: ${apkPlainVersionName(info.installedVersion)}"
                                 },
                             )
                         }
-                    }
-                    Spacer(Modifier.width(10.dp))
-                    Column(
-                        horizontalAlignment = Alignment.End,
-                        verticalArrangement = Arrangement.spacedBy(6.dp),
-                        modifier = Modifier.widthIn(min = 110.dp, max = 150.dp),
-                    ) {
                         ApkVersionPill(
                             text = relationLabel,
                             color = relationColor,

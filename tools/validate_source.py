@@ -80,12 +80,12 @@ apk_support = (root/'app/src/main/java/com/exploradorxp/app/ApkInspectorSupport.
 assert 'apkPlainVersionName(info.versionName)' in apk_ui
 assert 'apkPlainVersionName(info.installedVersion)' in apk_ui
 assert '"No APK:' not in apk_ui and '"Certificado:' not in apk_ui
-# Card de APK da alpha.136: nome centralizado e dois selos empilhados à direita.
-card = apk_ui[apk_ui.index('// Cabeçalho com nome centralizado'):apk_ui.index('Spacer(Modifier.height(6.dp))', apk_ui.index('// Cabeçalho com nome centralizado'))]
+# Card de APK da alpha.137: nome centralizado e três selos empilhados à direita.
+card = apk_ui[apk_ui.index('// Cabeçalho com três selos empilhados'):apk_ui.index('Spacer(Modifier.height(6.dp))', apk_ui.index('// Cabeçalho com três selos empilhados'))]
 assert 'fontSize = 27.sp' in card and 'textAlign = TextAlign.Center' in card and 'info.appName' in card
-assert 'horizontalAlignment = Alignment.CenterHorizontally' in card
-assert 'widthIn(min = 110.dp, max = 150.dp)' in card
-assert card.index('text = relationLabel,') < card.index('text = apkPlainVersionName(info.versionName)')
+assert 'widthIn(min = 115.dp, max = 155.dp)' in card
+assert card.index('text = apkPlainVersionName(info.installedVersion)') < card.index('text = relationLabel,') < card.index('text = apkPlainVersionName(info.versionName)')
+assert 'color = installedVersionColor,' in card
 assert 'contentDescription = "Versão instalada:' in card
 assert 'contentDescription = "Situação do APK:' in card
 assert 'contentDescription = "Versão do APK:' in card

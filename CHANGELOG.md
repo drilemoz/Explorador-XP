@@ -1,3 +1,11 @@
+## 0.1.0-alpha.136 (2026-10-17)
+
+- APK: o nome do aplicativo no cartão principal ficou centralizado e cerca de 30% maior para dar mais destaque visual.
+- APK: a **versão instalada** permanece abaixo do nome, enquanto os dois selos da direita agora ficam empilhados: **situação** e **versão do APK**.
+- Quando o APK é **anterior** ao aplicativo já instalado, o selo de situação e o selo da versão do arquivo ficam **vermelhos**.
+- Mantida a ordem das ações rápidas em **Abrir, Gerenciar, Desinstalar, Instalar/Atualizar** e preservadas as verificações de assinatura, compatibilidade e downgrade.
+- Validações locais aprovadas; build Android completo e teste físico seguem pendentes.
+
 ## 0.1.0-alpha.135 (2026-10-17)
 
 - APK: nome do aplicativo ampliado de **16 sp para 21 sp**, com versão do arquivo retirada da linha do título.

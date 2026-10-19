@@ -1,17 +1,17 @@
-# Explorador XP 0.1.0-alpha.135
+# Explorador XP 0.1.0-alpha.136
 
-**Versão:** `0.1.0-alpha.135`  
-**versionCode:** `135`
+**Versão:** `0.1.0-alpha.136`  
+**versionCode:** `136`
 
-## Novidades
+## Destaques
 
-- Nome do aplicativo ampliado de 16 sp para 21 sp no cartão do APK.
-- Três selos na mesma linha abaixo do nome: versão instalada (azul), status e versão do arquivo (cores conforme a comparação).
-- Rolagem horizontal da linha de selos em telas estreitas ou com textos ampliados, sem quebrar a linha.
-- Descrições de acessibilidade para identificar cada selo.
-- Ordem anterior dos botões preservada: Abrir, Gerenciar, Desinstalar, Instalar/Atualizar.
+- Nome do aplicativo centralizado no cartão do APK, com aumento visual aproximado de 30%.
+- Versão instalada posicionada abaixo do nome.
+- Situação do APK e versão do arquivo movidas para a direita, empilhadas uma abaixo da outra.
+- Quando o APK é anterior ao instalado, os selos de situação e da versão do arquivo ficam vermelhos.
+- Botões rápidos preservados em Abrir, Gerenciar, Desinstalar e Instalar/Atualizar.
 
 ## Validação
 
-- Testes estruturais locais e integridade do ZIP realizados.
-- Compilação Android completa e teste físico ainda pendentes.
+- Validações locais e sincronização de metadados concluídas.
+- Build Android completo e testes físicos ainda pendentes nesta entrega.

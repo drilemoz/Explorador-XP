@@ -1074,49 +1074,47 @@ private fun ApkViewer(
                     else -> "O APK foi analisado. Revise os detalhes abaixo antes de continuar."
                 }
 
-                // Cabeçalho em duas faixas: ícone e nome em destaque acima; os três
-                // selos permanecem lado a lado, sem quebrar linha. Em telas estreitas
-                // ou com fontes ampliadas, a faixa dos selos pode rolar horizontalmente.
-                Column(
+                // Cabeçalho com nome centralizado: a versão instalada fica abaixo do
+                // título, enquanto situação e versão do APK são empilhadas à direita.
+                Row(
+                    verticalAlignment = Alignment.CenterVertically,
                     modifier = Modifier
                         .fillMaxWidth()
                         .background(Color(0xFFF3F7FC), RoundedCornerShape(12.dp))
                         .border(1.dp, Color(0xFFC5D4E6), RoundedCornerShape(12.dp))
                         .padding(10.dp),
-                    verticalArrangement = Arrangement.spacedBy(9.dp),
                 ) {
-                    Row(verticalAlignment = Alignment.CenterVertically) {
-                        if (info.iconBitmap != null) {
-                            Image(
-                                bitmap = info.iconBitmap.asImageBitmap(),
-                                contentDescription = info.appName,
-                                modifier = Modifier.size(70.dp).clip(RoundedCornerShape(16.dp)),
-                                contentScale = ContentScale.Fit,
-                            )
-                        } else {
-                            Image(
-                                painter = androidx.compose.ui.res.painterResource(R.drawable.file_apk_large),
-                                contentDescription = null,
-                                modifier = Modifier.size(66.dp),
-                            )
-                        }
-                        Spacer(Modifier.width(12.dp))
+                    if (info.iconBitmap != null) {
+                        Image(
+                            bitmap = info.iconBitmap.asImageBitmap(),
+                            contentDescription = info.appName,
+                            modifier = Modifier.size(70.dp).clip(RoundedCornerShape(16.dp)),
+                            contentScale = ContentScale.Fit,
+                        )
+                    } else {
+                        Image(
+                            painter = androidx.compose.ui.res.painterResource(R.drawable.file_apk_large),
+                            contentDescription = null,
+                            modifier = Modifier.size(66.dp),
+                        )
+                    }
+                    Spacer(Modifier.width(12.dp))
+                    Column(
+                        modifier = Modifier.weight(1f),
+                        horizontalAlignment = Alignment.CenterHorizontally,
+                        verticalArrangement = Arrangement.spacedBy(8.dp),
+                    ) {
                         Text(
                             text = info.appName,
-                            modifier = Modifier.weight(1f),
+                            modifier = Modifier.fillMaxWidth(),
+                            textAlign = TextAlign.Center,
                             fontWeight = FontWeight.Bold,
-                            fontSize = 21.sp,
-                            lineHeight = 25.sp,
+                            fontSize = 27.sp,
+                            lineHeight = 31.sp,
                             color = Color(0xFF152A48),
                             maxLines = 2,
                             overflow = TextOverflow.Ellipsis,
                         )
-                    }
-                    Row(
-                        modifier = Modifier.fillMaxWidth().horizontalScroll(rememberScrollState()),
-                        verticalAlignment = Alignment.CenterVertically,
-                        horizontalArrangement = Arrangement.spacedBy(6.dp),
-                    ) {
                         if (info.installedVersionCode != null) {
                             ApkVersionPill(
                                 text = apkPlainVersionName(info.installedVersion),
@@ -1126,6 +1124,13 @@ private fun ApkViewer(
                                 },
                             )
                         }
+                    }
+                    Spacer(Modifier.width(10.dp))
+                    Column(
+                        horizontalAlignment = Alignment.End,
+                        verticalArrangement = Arrangement.spacedBy(6.dp),
+                        modifier = Modifier.widthIn(min = 110.dp, max = 150.dp),
+                    ) {
                         ApkVersionPill(
                             text = relationLabel,
                             color = relationColor,

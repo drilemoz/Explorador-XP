@@ -18,8 +18,8 @@ object ReleaseNotes {
             versionCode = BuildConfig.VERSION_CODE,
             title = "O Explorador XP foi atualizado",
             changes = listOf(
-                "Nome do aplicativo maior na identificação do APK, com o ícone ao lado e sem selo de versão na linha do título.",
-                "Versão instalada, situação e versão do arquivo agora ficam em três selos na mesma linha, com cores preservadas e rolagem horizontal em telas pequenas.",
+                "Nome do aplicativo centralizado no resumo do APK, com aumento visual aproximado de 30% e mais destaque ao lado do ícone.",
+                "Versão instalada permanece abaixo do nome, enquanto situação e versão do arquivo foram movidas para a direita, uma abaixo da outra, com vermelho para APK anterior.",
                 "Mantida a ordem dos botões Abrir, Gerenciar, Desinstalar e Instalar/Atualizar, além das verificações de segurança do APK.",
             )
         )

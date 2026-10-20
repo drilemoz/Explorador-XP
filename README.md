@@ -1,4 +1,4 @@
-> **Versão atual:** 0.1.0-alpha.137 (`versionCode 137`). Resumo do APK com nome centralizado e três selos empilhados à direita: versão instalada, situação e versão do arquivo. A versão mais antiga entre instalada e APK fica vermelha. Ações Abrir/Gerenciar/Desinstalar/Instalar-Atualizar mantidas. O ZIP segue salvando em Downloads/XP e fechando somente após sucesso. Build Android e teste físico pendentes.
+> **Versão atual:** 0.1.0-alpha.138 (`versionCode 138`). Os três selos de versão e status do APK ficam empilhados em retângulos de dimensões iguais (142 × 34 dp), cantos retos e texto centralizado; textos extensos são truncados apenas visualmente. Regras de cor e botões preservados. O ZIP segue salvando em Downloads/XP e fechando após sucesso. Build Android e teste físico pendentes.
 
 **alpha.122 (novidades):** abas Categorias/Pastas/Arquivos no armazenamento, soma verificada ou parcial dos aplicativos quando o Android permite, Maiores/Menores/Instalados/Atualizados nos filtros rápidos, OBB como dados de jogos, filtro por tipo nos maiores arquivos e abertura de artefatos ZIP sem extensão recebidos pelo Abrir com.
 

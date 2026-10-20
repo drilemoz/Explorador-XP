@@ -1,16 +1,14 @@
-# Explorador XP 0.1.0-alpha.137
+# Explorador XP 0.1.0-alpha.138
 
-**Versão:** `0.1.0-alpha.137`  
-**versionCode:** `137`
+**Versão:** `0.1.0-alpha.138`  
+**versionCode:** `138`
 
-## Destaques
+## Novidades
 
-- Nome do aplicativo centralizado no cartão do APK.
-- Três selos empilhados verticalmente à direita: versão instalada, situação e versão do arquivo APK.
-- A versão mais antiga entre a instalada e a do APK fica vermelha: em atualização, o selo da versão instalada fica vermelho; em downgrade, a situação e a versão do APK ficam vermelhas.
-- Botões rápidos preservados em Abrir, Gerenciar, Desinstalar e Instalar/Atualizar.
+- Os três selos de identificação do APK, empilhados à direita, agora são retângulos com a mesma largura (142 dp) e altura (34 dp).
+- Removidos os cantos arredondados somente desses selos. Texto centralizado, com reticências quando ultrapassar a largura disponível e descrição completa para acessibilidade.
+- Preservadas cores por comparação de versões, nome do aplicativo centralizado e ordem dos botões de ação.
 
 ## Validação
 
-- Validações locais e sincronização de metadados concluídas.
-- Build Android completo e testes físicos ainda pendentes nesta entrega.
+- Validações estruturais do código e metadados; build Android e verificação visual no dispositivo pendentes.

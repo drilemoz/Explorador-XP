@@ -1079,8 +1079,8 @@ private fun ApkViewer(
                     else -> "O APK foi analisado. Revise os detalhes abaixo antes de continuar."
                 }
 
-                // Cabeçalho com três selos empilhados: nome centralizado ao lado do
-                // ícone e, à direita, versões/situação uma abaixo da outra.
+                // Cabeçalho com três retângulos de tamanho idêntico, sem cantos arredondados,
+                // com o texto centralizado e mantendo as cores de comparação de versões.
                 Row(
                     verticalAlignment = Alignment.CenterVertically,
                     modifier = Modifier
@@ -1117,12 +1117,12 @@ private fun ApkViewer(
                     )
                     Spacer(Modifier.width(10.dp))
                     Column(
-                        horizontalAlignment = Alignment.End,
+                        horizontalAlignment = Alignment.CenterHorizontally,
                         verticalArrangement = Arrangement.spacedBy(6.dp),
-                        modifier = Modifier.widthIn(min = 115.dp, max = 155.dp),
+                        modifier = Modifier.width(142.dp),
                     ) {
                         if (info.installedVersionCode != null) {
-                            ApkVersionPill(
+                            ApkVersionRectangle(
                                 text = apkPlainVersionName(info.installedVersion),
                                 color = installedVersionColor,
                                 modifier = Modifier.semantics {
@@ -1130,12 +1130,12 @@ private fun ApkViewer(
                                 },
                             )
                         }
-                        ApkVersionPill(
+                        ApkVersionRectangle(
                             text = relationLabel,
                             color = relationColor,
                             modifier = Modifier.semantics { contentDescription = "Situação do APK: $relationLabel" },
                         )
-                        ApkVersionPill(
+                        ApkVersionRectangle(
                             text = apkPlainVersionName(info.versionName),
                             color = relationColor,
                             modifier = Modifier.semantics {
@@ -1793,22 +1793,25 @@ private fun saveApkIcon(apkFile: File, info: ApkInfo): File {
 }
 
 /** Ações de APK em quatro colunas, com o título sob o ícone. */
-/** Etiqueta compacta, com alto contraste e largura adaptável ao dispositivo. */
+/** Três etiquetas de tamanho fixo no cabeçalho do APK: cantos retos e texto centralizado. */
 @Composable
-private fun ApkVersionPill(
+private fun ApkVersionRectangle(
     text: String,
     color: Color,
     modifier: Modifier = Modifier,
 ) {
     Box(
         modifier = modifier
-            .clip(RoundedCornerShape(8.dp))
+            .fillMaxWidth()
+            .height(34.dp)
             .background(color)
-            .padding(horizontal = 9.dp, vertical = 6.dp),
+            .padding(horizontal = 6.dp),
         contentAlignment = Alignment.Center,
     ) {
         Text(
             text = text,
+            modifier = Modifier.fillMaxWidth(),
+            textAlign = TextAlign.Center,
             fontSize = 10.5.sp,
             lineHeight = 13.sp,
             fontWeight = FontWeight.Bold,

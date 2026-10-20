@@ -1,3 +1,10 @@
+## 0.1.0-alpha.138 (2026-10-20)
+
+- APK: três selos empilhados à direita passam a usar dimensões idênticas de **142 dp × 34 dp**, independentemente do tamanho do texto.
+- APK: os selos agora são **retângulos sem cantos arredondados**; texto centralizado horizontal e verticalmente, com reticências para valores extensos sem romper o cartão.
+- Mantida a versão completa para acessibilidade, bem como o nome centralizado, cores de atualização/versão antiga e a ordem dos quatro botões.
+- Validação estrutural e de metadados; compilação Android e testes no aparelho pendentes.
+
 ## 0.1.0-alpha.137 (2026-10-19)
 
 - APK: os três selos do cabeçalho agora ficam **um embaixo do outro** à direita: **versão instalada**, **situação** e **versão do APK**.

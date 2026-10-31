@@ -91,22 +91,19 @@ import java.text.DateFormat
 import java.util.Date
 
 /** Barra persistente para o explorador e todas as páginas internas. */
-internal enum class ExplorerQuickDestination { PHOTOS, VIDEOS, DOWNLOADS, HOME, TRASH, TOOLS }
+internal enum class ExplorerQuickDestination { PHOTOS, VIDEOS, HOME, DOWNLOADS, TOOLS }
 internal enum class MediaShortcutKind { PHOTOS, VIDEOS }
 
 @Composable
 internal fun ExplorerQuickAccessBar(
     active: ExplorerQuickDestination?,
     onNavigate: (ExplorerQuickDestination) -> Unit,
-    trashCount: Int? = null,
-    trashBytes: Long? = null,
 ) {
     val tabs = listOf(
         Triple(ExplorerQuickDestination.PHOTOS, "Fotos", R.drawable.xp_folder_image),
         Triple(ExplorerQuickDestination.VIDEOS, "Vídeos", R.drawable.xp_folder_video),
-        Triple(ExplorerQuickDestination.DOWNLOADS, "Downloads", R.drawable.folder_downloads),
         Triple(ExplorerQuickDestination.HOME, "Início", R.drawable.xp_home),
-        Triple(ExplorerQuickDestination.TRASH, "Lixeira", if ((trashCount ?: 0) > 0) R.drawable.trash_full else R.drawable.trash_empty),
+        Triple(ExplorerQuickDestination.DOWNLOADS, "Downloads", R.drawable.folder_downloads),
         Triple(ExplorerQuickDestination.TOOLS, "Ferramentas", R.drawable.settings),
     )
     Row(
@@ -119,7 +116,6 @@ internal fun ExplorerQuickAccessBar(
     ) {
         tabs.forEach { (destination, label, drawable) ->
             val selected = active == destination
-            val isTrash = destination == ExplorerQuickDestination.TRASH
             Column(
                 modifier = Modifier.weight(1f).fillMaxWidth()
                     .background(if (selected) XpSelection else Color.Transparent)
@@ -136,22 +132,9 @@ internal fun ExplorerQuickAccessBar(
                     Box(modifier = Modifier.size(28.dp), contentAlignment = Alignment.Center) {
                         Image(
                             painter = painterResource(drawable),
-                            contentDescription = if (isTrash) {
-                                val amount = trashCount?.let { "$it ${if (it == 1) "item" else "itens"}" }
-                                    ?: "contagem não carregada"
-                                "Lixeira: $amount, ${trashBytes?.let { "$it bytes" } ?: "espaço não carregado"}"
-                            } else label,
+                            contentDescription = label,
                             modifier = Modifier.size(26.dp),
                         )
-                        if (isTrash && trashCount != null && trashCount > 0) {
-                            Text(
-                                compactTrashCount(trashCount), color = Color.White,
-                                fontSize = if (trashCount > 99) 7.sp else 9.sp,
-                                fontWeight = FontWeight.Bold,
-                                maxLines = 1,
-                                modifier = Modifier.align(Alignment.Center).offset(y = 2.dp),
-                            )
-                        }
                     }
                 }
                 Spacer(Modifier.height(2.dp))
@@ -347,6 +330,7 @@ internal fun MediaShortcutScreen(
     onShowManual: () -> Unit,
     onShowAbout: () -> Unit,
     onOpenTrash: () -> Unit,
+    trashCount: Int? = null,
 ) {
     val context = androidx.compose.ui.platform.LocalContext.current
     val scope = rememberCoroutineScope()
@@ -701,7 +685,8 @@ internal fun MediaShortcutScreen(
                 canUp = folderPath != null,
                 onBack = { switchFolder(null, rememberForForward = true) },
                 onForward = { forwardFolder?.let { switchFolder(it) } },
-                onHome = { switchFolder(null) }, onUp = { switchFolder(null, rememberForForward = true) },
+                onUp = { switchFolder(null, rememberForForward = true) },
+                onTrash = onOpenTrash, trashCount = trashCount,
                 onSearch = { searchMode = !searchMode; if (!searchMode) searchQuery = "" },
                 onNewFolder = { newFolderDialog = true },
                 onNewFile = { newFileDialog = true },

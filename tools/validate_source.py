@@ -60,13 +60,26 @@ assert 'preservesBytesWithoutRecompressing' in zip_tests and 'rejectsTruncatedIn
 print(f'OK: {version} chips, navigation, ZIP UI, editor, version metadata, release notes')
 
 quicktest=(root/'app/src/test/java/com/exploradorxp/app/ExplorerQuickAccessTest.kt').read_text()
-assert 'bottomBarKeepsSixShortcutsWithoutNetwork' in quicktest
-expected=['PHOTOS','VIDEOS','DOWNLOADS','HOME','TRASH','TOOLS']
+assert 'bottomBarKeepsFiveShortcutsWithHomeThird' in quicktest
+expected=['PHOTOS','VIDEOS','HOME','DOWNLOADS','TOOLS']
 start=quicktest.index('assertEquals(listOf(')
 end=quicktest.index('), ExplorerQuickDestination.values()',start)
 import re
 assert re.findall(r'ExplorerQuickDestination\.([A-Z_]+),', quicktest[start:end]) == expected
-assert quicktest[start:end].count('ExplorerQuickDestination.') == 6
+assert quicktest[start:end].count('ExplorerQuickDestination.') == 5
+# Barra superior: início não duplicado, lixeira na última posição e contador preservado.
+chrome=(root/'app/src/main/java/com/exploradorxp/app/ExplorerChrome.kt').read_text()
+nav_buttons=chrome[chrome.index('internal fun RowScope.XpNavigationButtons('):chrome.index('/** Menus reutilizados')]
+assert 'R.drawable.home, "Início"' not in nav_buttons
+assert nav_buttons.index('"Voltar"') < nav_buttons.index('"Avançar"') < nav_buttons.index('"Subir"')
+assert nav_buttons.index('commands.lastLabel') < nav_buttons.index('"Lixeira"')
+assert 'onTrash: () -> Unit' in chrome and 'commands.onTrash' in nav_buttons
+assert 'compactTrashCount(count)' in nav_buttons
+assert 'trashCount = trashUiState.items.size.takeIf { trashUiState.loaded }' in screen
+assert 'onTrash = onOpenTrash' in nav and 'trashCount = trashCount' in nav
+assert 'ExplorerQuickDestination.TRASH' not in nav and 'ExplorerQuickDestination.TRASH' not in screen
+assert 'ExplorerQuickDestination.HOME, "Início"' in nav and 'ExplorerQuickDestination.DOWNLOADS, "Downloads"' in nav
+assert nav.index('ExplorerQuickDestination.HOME, "Início"') < nav.index('ExplorerQuickDestination.DOWNLOADS, "Downloads"')
 assert 'NETWORK' not in nav and 'onShowNetwork' not in nav and 'onShowNetwork' not in screen
 assert 'NetworkExplorerScreen' not in screen and 'onNetwork' not in screen
 assert 'Modifier.size(28.dp)' in nav and 'Modifier.size(26.dp)' in nav and 'Text(label, fontSize = 10.sp' in nav

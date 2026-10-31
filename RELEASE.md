@@ -1,16 +1,16 @@
-# Explorador XP 0.1.0-alpha.141
+# Explorador XP 0.1.0-alpha.142
 
-**Versão:** `0.1.0-alpha.141`  
-**versionCode:** `141`
+**Versão:** `0.1.0-alpha.142`  
+**versionCode:** `142`
 
-## Correção do workflow Gerar APK 131
+## Alterações
 
-- A etapa `android-actions/setup-android@v3` tentava executar `sdkmanager tools`, mas o pacote `tools` não é mais distribuído.
-- Atualizado para `android-actions/setup-android@v4` e configurado `packages: platform-tools` nos workflows de APK, AAB e desempenho.
-- Mantida instalação explícita de `platforms;android-36` e API 33 apenas no workflow que executa emulador.
-- Validador Play verifica a versão do action, o pacote e a coerência da API 36.
-- Sincroniza `app_identity.json` com `compileSdk = 36` e `targetSdk = 36`, que já estavam corretos no Gradle.
+- Lixeira movida da barra inferior para a extremidade direita da barra superior, mantendo indicador de itens.
+- Início removido da barra superior, já que possui atalho na barra inferior.
+- Atalhos inferiores: Fotos | Vídeos | Início | Downloads | Ferramentas.
+- Preservadas navegação, seleção e ações de arquivos, assim como a preparação para API 36 e Google Play.
+- Análise documentada para futura galeria de arquivos sem a etapa inicial de pastas; não alterada nesta versão.
 
-## Validação e pendências
+## Verificações pendentes
 
-Validação de arquivos, scripts e metadados realizada localmente. O erro relatado ocorreu **antes da compilação Gradle**; não há prova de que APK/AAB compilarão até que os workflows sejam executados no GitHub Actions.
+A compilação Android e os testes em aparelho não foram executados neste ambiente.

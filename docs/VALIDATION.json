@@ -1,11 +1,11 @@
 {
-  "version_build": "0.1.0-alpha.141",
-  "version_code": 141,
-  "manager_version": "0.1.0-alpha.141",
+  "version_build": "0.1.0-alpha.142",
+  "version_code": 142,
+  "manager_version": "0.1.0-alpha.142",
   "notes": [
-    "Log Gerar APK 131: falha em android-actions/setup-android@v3 por chamada a sdkmanager tools (pacote removido); o Gradle não chegou a rodar.",
-    "APK, AAB e Desempenho migrados para android-actions/setup-android@v4 com packages: platform-tools e plataformas instaladas explicitamente.",
-    "Pré-checagem Play reforçada: não fixa versão alpha antiga, testa SDK 36 do Gradle e de app_identity.json e workflows SDK.",
-    "Compilação Android e execução no GitHub Actions ainda pendentes."
+    "Barra inferior: 5 atalhos Fotos/Vídeos/Início/Downloads/Ferramentas, nesta ordem.",
+    "Barra superior: removido Início duplicado; Lixeira inserida após Favoritos/Colar, com contador e navegação para a Lixeira.",
+    "Galerias Fotos/Vídeos continuam abrindo pastas; somente análise de futura visualização agregada de arquivos por padrão.",
+    "Testes estruturais locais executados; Gradle/Android e testes em aparelho pendentes."
   ]
 }

@@ -18,9 +18,9 @@ object ReleaseNotes {
             versionCode = BuildConfig.VERSION_CODE,
             title = "O Explorador XP foi atualizado",
             changes = listOf(
-                "Correção do build no GitHub Actions: SDK usa setup-android v4, sem pedir o pacote antigo tools.",
-                "Build de APK, AAB para Google Play e perfil de desempenho usam a mesma preparação de Android SDK 36.",
-                "Metadados do projeto sincronizados com Android 16 (API 36) e verificação preventiva adicionada ao CI.",
+                "Lixeira foi movida para a extremidade direita da barra superior, com contador de itens.",
+                "Início ocupa agora a terceira posição da barra inferior; Downloads passou para a quarta posição.",
+                "Barra inferior tem cinco atalhos: Fotos, Vídeos, Início, Downloads e Ferramentas, sem duplicar Início no topo.",
             )
         )
 }

@@ -1,3 +1,12 @@
+## 0.1.0-alpha.142 (2026-10-31)
+
+- Navegação: removido o botão **Início** duplicado da barra superior e adicionado o atalho **Lixeira** ao fim dessa barra, com ícone vazio/cheio e contador abreviado de itens.
+- Barra inferior com cinco destinos nesta ordem: **Fotos, Vídeos, Início, Downloads, Ferramentas**. O Início ocupa a antiga posição de Downloads, que passa à quarta posição.
+- Preservadas as ações existentes de Lixeira nas ferramentas e menus, assim como Voltar/Avançar/Subir das galerias.
+- Ajuda atualizada para refletir a navegação; testes de regressão e verificações estruturais adaptados.
+- Documentada proposta futura: abrir Fotos/Vídeos diretamente com arquivos de todas as pastas e oferecer pastas como filtro opcional. Essa mudança de comportamento **não foi implementada**.
+- Build Android completo e teste visual em aparelho continuam pendentes.
+
 ## 0.1.0-alpha.141 (2026-10-31)
 
 - Corrige **Gerar APK 131**: `android-actions/setup-android@v3` solicitava o pacote Android SDK obsoleto `tools`, e o `sdkmanager` encerrava com código 1.

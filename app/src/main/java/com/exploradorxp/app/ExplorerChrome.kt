@@ -10,6 +10,7 @@ import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 
 /** Componentes comuns de chrome: mesmo desenho e dimensões em Arquivos, Fotos e Vídeos. */
 @Composable
@@ -29,8 +30,9 @@ internal data class XpNavigationCommands(
     val canUp: Boolean,
     val onBack: () -> Unit,
     val onForward: () -> Unit,
-    val onHome: () -> Unit,
     val onUp: () -> Unit,
+    val onTrash: () -> Unit,
+    val trashCount: Int? = null,
     val onSearch: () -> Unit,
     val onNewFolder: () -> Unit,
     val onNewFile: () -> Unit,
@@ -57,7 +59,6 @@ internal fun XpExplorerNavigationBar(commands: XpNavigationCommands) {
 internal fun RowScope.XpNavigationButtons(commands: XpNavigationCommands) {
         XpClassicToolButton(R.drawable.back, "Voltar", commands.canBack, commands.onBack, Modifier.weight(1f), compact = true)
         XpClassicToolButton(R.drawable.forward, "Avançar", commands.canForward, commands.onForward, Modifier.weight(1f), compact = true)
-        XpClassicToolButton(R.drawable.home, "Início", true, commands.onHome, Modifier.weight(1f), compact = true)
         XpClassicToolButton(R.drawable.up, "Subir", commands.canUp, commands.onUp, Modifier.weight(1f), compact = true)
         XpClassicToolButton(R.drawable.search, "Pesquisar", true, commands.onSearch, Modifier.weight(1f), compact = true)
         var newMenu by remember { mutableStateOf(false) }
@@ -71,6 +72,24 @@ internal fun RowScope.XpNavigationButtons(commands: XpNavigationCommands) {
         }
         XpClassicToolButton(R.drawable.refresh, "Atualizar", true, commands.onRefresh, Modifier.weight(1f), compact = true)
         XpClassicToolButton(commands.lastIcon, commands.lastLabel, commands.canLast, commands.onLast, Modifier.weight(1f), compact = true)
+        Box(Modifier.weight(1f).fillMaxHeight()) {
+            XpClassicToolButton(
+                if ((commands.trashCount ?: 0) > 0) R.drawable.trash_full else R.drawable.trash_empty,
+                "Lixeira", true, commands.onTrash, Modifier.fillMaxWidth(), compact = true,
+            )
+            commands.trashCount?.takeIf { it > 0 }?.let { count ->
+                androidx.compose.material3.Text(
+                    text = compactTrashCount(count),
+                    color = androidx.compose.ui.graphics.Color.White,
+                    fontSize = 9.sp,
+                    modifier = Modifier.align(Alignment.TopEnd)
+                        .padding(end = 1.dp)
+                        .background(androidx.compose.ui.graphics.Color(0xFFCC3030),
+                            androidx.compose.foundation.shape.RoundedCornerShape(7.dp))
+                        .padding(horizontal = 3.dp, vertical = 1.dp),
+                )
+            }
+        }
 }
 
 /** Menus reutilizados, inclusive suas ações, pelo explorador e pelas duas galerias. */

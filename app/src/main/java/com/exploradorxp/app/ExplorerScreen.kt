@@ -206,7 +206,6 @@ fun ExplorerScreen(
     val displayedItems = if (advancedSearch.active) advancedSearch.results else state.items
     val quickTrashState by trashState.collectAsStateWithLifecycle()
     val trashCount = quickTrashState.items.size.takeIf { quickTrashState.loaded }
-    val trashBytes = quickTrashState.totalBytes.takeIf { quickTrashState.loaded }
 
     // Ao voltar de uma ferramenta aberta pelo painel, retornar ao próprio painel.
     fun returnFromTool() {
@@ -250,7 +249,6 @@ fun ExplorerScreen(
                 onTabChange(ExplorerTab.FILES)
                 onHome()
             }
-            ExplorerQuickDestination.TRASH -> { showTrash = true; onLoadTrash() }
             ExplorerQuickDestination.TOOLS -> showToolsPanel = true
         }
     }
@@ -290,6 +288,7 @@ fun ExplorerScreen(
                         onShowManual = { mediaShortcut = null; showManual = true },
                         onShowAbout = { mediaShortcut = null; showAbout = true },
                         onOpenTrash = { mediaShortcut = null; showTrash = true; onLoadTrash() },
+                        trashCount = trashCount,
                     )
                     showDeviceInfo -> DeviceInfoScreen(onDismiss = { showDeviceInfo = false; returnFromTool() })
                     showInstalledApps -> InstalledAppsManagerScreen(
@@ -340,13 +339,10 @@ fun ExplorerScreen(
                 active = when {
                     mediaShortcut == MediaShortcutKind.PHOTOS -> ExplorerQuickDestination.PHOTOS
                     mediaShortcut == MediaShortcutKind.VIDEOS -> ExplorerQuickDestination.VIDEOS
-                    showTrash -> ExplorerQuickDestination.TRASH
                     showToolsPanel -> ExplorerQuickDestination.TOOLS
                     else -> null
                 },
                 onNavigate = ::navigateShortcut,
-                trashCount = trashCount,
-                trashBytes = trashBytes,
             )
         }
         // Os comandos da galeria também executam transferências do ViewModel.
@@ -393,7 +389,6 @@ fun ExplorerScreen(
             canForward = state.canGoForward,
             onBack = onBack,
             onForward = onForward,
-            onHome = onHome,
             onUp = onUp,
             viewMode = state.viewMode,
             onToggleView = onToggleView,
@@ -553,8 +548,6 @@ fun ExplorerScreen(
                 else -> null
             },
             onNavigate = ::navigateShortcut,
-            trashCount = trashCount,
-            trashBytes = trashBytes,
         )
     }
 
@@ -729,7 +722,6 @@ private fun XpHeader(
     canForward: Boolean,
     onBack: () -> Unit,
     onForward: () -> Unit,
-    onHome: () -> Unit,
     onUp: () -> Unit,
     viewMode: ViewMode,
     onToggleView: () -> Unit,
@@ -999,7 +991,9 @@ private fun XpHeader(
                 } else {
                     XpNavigationButtons(XpNavigationCommands(
                         canBack = canBack, canForward = canForward, canUp = true,
-                        onBack = onBack, onForward = onForward, onHome = onHome, onUp = onUp,
+                        onBack = onBack, onForward = onForward, onUp = onUp,
+                        onTrash = onOpenTrash,
+                        trashCount = trashUiState.items.size.takeIf { trashUiState.loaded },
                         onSearch = onToggleSearch, onNewFolder = onNewFolder, onNewFile = onNewFile,
                         canNew = true, onRefresh = onRefresh,
                         onLast = if (canPaste) onPaste else onOpenFavorites,
@@ -1454,12 +1448,12 @@ private fun SectionTitle(title: String, icon: Int) {
 private fun HelpManualScreen(onDismiss: () -> Unit) {
     var expandedTopic by remember { mutableStateOf("Começando") }
     val topics = listOf(
-        "Começando" to "Use a barra superior para navegar e operar arquivos; Fotos, Vídeos, Downloads, Início, Lixeira e Ferramentas ficam na barra inferior fixa. Exibir contém classificação, lista compacta e Atualizar. Toque em um arquivo para abrir e segure para selecionar.",
+        "Começando" to "Use a barra superior para navegar e operar arquivos; Fotos, Vídeos, Início, Downloads e Ferramentas ficam na barra inferior fixa; Lixeira está no fim da barra superior. Exibir contém classificação, lista compacta e Atualizar. Toque em um arquivo para abrir e segure para selecionar.",
         "Navegação" to "O campo Endereço funciona como caminho navegável. Toque em uma parte do caminho para voltar diretamente até ela. A seta ao lado do endereço permite trocar entre armazenamentos detectados. O gesto Voltar do Android percorre o histórico das pastas abertas.",
         "Arquivos e pastas" to "A lista e a grade mostram o tipo do arquivo, tamanho e outras informações úteis. O botão de opções abre ações como copiar, mover, renomear, excluir, compartilhar, favoritar e ver propriedades.",
         "Copiar e mover" to "Selecione itens e use Copiar ou Mover. Depois navegue até o destino e use Colar. Quando há algo na área de transferência, o botão Colar aparece na barra superior.",
         "Compactar ZIP" to "Selecione um ou vários arquivos/pastas e use o atalho ZIP da barra de seleção. Defina o nome e o destino; o app preserva pastas, mostra progresso e permite cancelar.",
-        "Lixeira" to "Ao excluir, escolha entre Mover para a Lixeira e Apagar permanentemente. A barra inferior traz a contagem sobre o ícone e o espaço ocupado ao lado em formato curto; o total aparece na tela Lixeira. Os itens não expiram automaticamente. Na Lixeira você pode restaurar, apagar definitivamente ou esvaziar tudo.",
+        "Lixeira" to "Ao excluir, escolha entre Mover para a Lixeira e Apagar permanentemente. A barra superior mostra o atalho Lixeira e sua contagem abreviada de itens; os detalhes aparecem na tela Lixeira. Os itens não expiram automaticamente. Na Lixeira você pode restaurar, apagar definitivamente ou esvaziar tudo.",
         "Painel de Ferramentas" to "Abra Ferramentas na barra inferior para acessar em uma grade Aplicativos, Armazenamento, Dispositivo, Lixeira, Configurações, Ajuda e Sobre. Classificar por Nome/Data/Tamanho/Tipo, Pastas primeiro e Lista compacta ficam no menu Exibir.",
         "Armazenamento" to "A barra inferior mostra os valores gerais do volume informados pelo Android. Na tela Armazenamento, esses números ficam separados dos arquivos efetivamente analisados pelo Explorador XP. Categorias e pastas usam somente o conjunto que pôde ser enumerado; áreas protegidas não são estimadas.",
         "Aplicativos instalados" to "Em Ferramentas > Aplicativos instalados você pode pesquisar apps de usuário e do sistema, consultar versão, tamanho, SDK, datas, instalador e permissões. Sem Acesso ao uso, o tamanho mostrado é somente o dos APKs instalados; com essa autorização, o Android também fornece código, dados e cache. Desinstalar usa a confirmação do sistema. Por proteção do Android, Limpar dados abre os detalhes oficiais do aplicativo para você concluir a ação.",

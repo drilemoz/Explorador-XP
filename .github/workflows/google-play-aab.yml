@@ -25,8 +25,13 @@ jobs:
         with:
           gradle-version: '8.13'
 
+      - name: Validar configuração Android SDK do CI
+        run: python3 tools/validate_ci_android_sdk.py
+
       - name: Configurar Android SDK
-        uses: android-actions/setup-android@v3
+        uses: android-actions/setup-android@v4
+        with:
+          packages: platform-tools
 
       - name: Instalar SDK Android 36
         run: sdkmanager "platforms;android-36"

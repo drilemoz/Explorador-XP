@@ -1,4 +1,4 @@
-> **Versão atual:** 0.1.0-alpha.140 (`versionCode 140`). Preparação para Google Play: SDK/target 36, AAB release assinado em workflow separado, privacidade no app e guia de declarações da Play. Módulo Rede permanece removido; build Android e validação em aparelhos ainda pendentes.
+> **Versão atual:** 0.1.0-alpha.141 (`versionCode 141`). Corrige falha do workflow Gerar APK 131 na instalação do pacote obsoleto Android SDK `tools`: atualiza setup-android@v3 para @v4 com apenas `platform-tools` nos workflows APK, AAB e desempenho. Sincroniza API 36 nos metadados. Compilação Android ainda pendente.
 
 **Google Play:** veja [docs/GOOGLE_PLAY_RELEASE.md](docs/GOOGLE_PLAY_RELEASE.md) e [docs/PRIVACIDADE_RASCUNHO.md](docs/PRIVACIDADE_RASCUNHO.md). O AAB é produzido pelo workflow manual `Gerar AAB para Google Play`; publicação na loja exige passos do desenvolvedor.
 

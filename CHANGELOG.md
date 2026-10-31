@@ -1,3 +1,12 @@
+## 0.1.0-alpha.141 (2026-10-31)
+
+- Corrige **Gerar APK 131**: `android-actions/setup-android@v3` solicitava o pacote Android SDK obsoleto `tools`, e o `sdkmanager` encerrava com código 1.
+- Usa `android-actions/setup-android@v4` com `packages: platform-tools` nos workflows **Gerar APK**, **Gerar AAB para Google Play** e **Desempenho**.
+- Mantém plataformas SDK 36 e 33 conforme a necessidade dos workflows; testes Gradle só poderão avançar após a etapa de preparação do SDK.
+- Atualiza verificação preventiva de workflows e elimina a exigência de versão hard-coded do validador Play.
+- Corrige divergência de SDK no `app_identity.json`: `compileSdk` e `targetSdk` agora registrados como 36, iguais ao Gradle.
+- Testes e validações locais não equivalem a um build Android completo, ainda pendente.
+
 ## 0.1.0-alpha.140 (2026-10-31)
 
 - Google Play: `compileSdk` e `targetSdk` aumentados para API 36 (Android 16), mantendo `minSdk 26`; AGP 8.13.2 e Gradle 8.13 na configuração de build.

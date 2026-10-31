@@ -1,22 +1,16 @@
-# Explorador XP 0.1.0-alpha.140
+# Explorador XP 0.1.0-alpha.141
 
-**Versão:** `0.1.0-alpha.140`  
-**versionCode:** `140`
+**Versão:** `0.1.0-alpha.141`  
+**versionCode:** `141`
 
-## Preparação para a Play Store
+## Correção do workflow Gerar APK 131
 
-- `compileSdk` e `targetSdk` atualizados para **36** (Android 16), preservando `minSdk 26`.
-- Android Gradle Plugin `8.13.2` e Gradle `8.13` configurados para os workflows.
-- Workflow independente `Gerar AAB para Google Play` com testes, lint, assinatura via Secrets e Artifact.
-- Política de privacidade explicativa dentro de **Sobre**; minuta pública e declarações de permissões documentadas.
-- Não altera assinatura existente, ID do pacote ou os recursos centrais.
+- A etapa `android-actions/setup-android@v3` tentava executar `sdkmanager tools`, mas o pacote `tools` não é mais distribuído.
+- Atualizado para `android-actions/setup-android@v4` e configurado `packages: platform-tools` nos workflows de APK, AAB e desempenho.
+- Mantida instalação explícita de `platforms;android-36` e API 33 apenas no workflow que executa emulador.
+- Validador Play verifica a versão do action, o pacote e a coerência da API 36.
+- Sincroniza `app_identity.json` com `compileSdk = 36` e `targetSdk = 36`, que já estavam corretos no Gradle.
 
-## Antes de publicar
+## Validação e pendências
 
-- Fazer build **real** e testes Android 16 (edge-to-edge, Back, armazenamento, arquivos e APKs).
-- Confirmar e publicar política de privacidade em URL HTTPS pública.
-- Preencher Data safety e as declarações de permissões de alto risco na Play Console.
-- Confirmar a chave de upload e aderir ao Play App Signing.
-- Criar ficha, capturas e formulário de classificação indicativa.
-
-Esta entrega é código-fonte, não um bundle já compilado ou publicação aprovada.
+Validação de arquivos, scripts e metadados realizada localmente. O erro relatado ocorreu **antes da compilação Gradle**; não há prova de que APK/AAB compilarão até que os workflows sejam executados no GitHub Actions.

@@ -18,9 +18,9 @@ object ReleaseNotes {
             versionCode = BuildConfig.VERSION_CODE,
             title = "O Explorador XP foi atualizado",
             changes = listOf(
-                "Preparação para Google Play: Android 16 (API 36) e fluxo separado para gerar App Bundle assinado.",
-                "Seção Privacidade e permissões adicionada à tela Sobre, com esclarecimentos sobre acesso local e consultas externas opcionais.",
-                "Módulo Rede continua removido; gerenciador de arquivos, aplicativos, visualizadores e demais ferramentas preservados.",
+                "Correção do build no GitHub Actions: SDK usa setup-android v4, sem pedir o pacote antigo tools.",
+                "Build de APK, AAB para Google Play e perfil de desempenho usam a mesma preparação de Android SDK 36.",
+                "Metadados do projeto sincronizados com Android 16 (API 36) e verificação preventiva adicionada ao CI.",
             )
         )
 }

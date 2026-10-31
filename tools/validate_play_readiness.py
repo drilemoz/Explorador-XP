@@ -31,5 +31,15 @@ ET.fromstring(manifest)
 assert (root/'docs/GOOGLE_PLAY_RELEASE.md').exists()
 assert (root/'docs/PRIVACIDADE_RASCUNHO.md').exists()
 assert 'NÃO publicada' in (root/'docs/PRIVACIDADE_RASCUNHO.md').read_text()
-assert re.search(r'^0\.1\.0-alpha\.140$',(root/'VERSION').read_text().strip())
+version=(root/'VERSION').read_text().strip()
+assert re.fullmatch(r'0\.1\.0-alpha\.\d+',version)
+identity=__import__('json').loads((root/'app_identity.json').read_text())
+assert identity['android']['compileSdk']==36 and identity['android']['targetSdk']==36
+assert identity['android']['versionName']==version
+for filename in ('gerar-apk.yml', 'desempenho.yml', 'google-play-aab.yml'):
+    workflow_text=(root/'.github/workflows'/filename).read_text()
+    assert workflow_text.count('uses: android-actions/setup-android@v4')==1, filename
+    assert 'packages: platform-tools' in workflow_text, filename
+    assert 'android-actions/setup-android@v3' not in workflow_text, filename
+    assert 'sdkmanager tools' not in workflow_text, filename
 print('OK: pré-checagem Play (API36, assinatura, bundle, docs, manifesto). Compilação e aprovação não verificadas.')

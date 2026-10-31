@@ -60,13 +60,24 @@ assert 'preservesBytesWithoutRecompressing' in zip_tests and 'rejectsTruncatedIn
 print(f'OK: {version} chips, navigation, ZIP UI, editor, version metadata, release notes')
 
 quicktest=(root/'app/src/test/java/com/exploradorxp/app/ExplorerQuickAccessTest.kt').read_text()
-assert 'bottomBarKeepsSevenShortcutsWithHomeCentered' in quicktest
-expected=['PHOTOS','VIDEOS','DOWNLOADS','HOME','NETWORK','TRASH','TOOLS']
+assert 'bottomBarKeepsSixShortcutsWithoutNetwork' in quicktest
+expected=['PHOTOS','VIDEOS','DOWNLOADS','HOME','TRASH','TOOLS']
 start=quicktest.index('assertEquals(listOf(')
 end=quicktest.index('), ExplorerQuickDestination.values()',start)
 import re
 assert re.findall(r'ExplorerQuickDestination\.([A-Z_]+),', quicktest[start:end]) == expected
-assert quicktest[start:end].count('ExplorerQuickDestination.') == 7
+assert quicktest[start:end].count('ExplorerQuickDestination.') == 6
+assert 'NETWORK' not in nav and 'onShowNetwork' not in nav and 'onShowNetwork' not in screen
+assert 'NetworkExplorerScreen' not in screen and 'onNetwork' not in screen
+assert 'Modifier.size(28.dp)' in nav and 'Modifier.size(26.dp)' in nav and 'Text(label, fontSize = 10.sp' in nav
+assert not list((root/'app/src/main/java/com/exploradorxp/app').glob('Network*.kt'))
+assert not list((root/'app/src/test/java/com/exploradorxp/app').glob('Network*.kt'))
+assert 'NETWORK' not in (root/'app/src/main/java/com/exploradorxp/app/ToolsPanelScreen.kt').read_text()
+assert 'onNetwork' not in (root/'app/src/main/java/com/exploradorxp/app/ExplorerChrome.kt').read_text()
+manifest = (root/'app/src/main/AndroidManifest.xml').read_text()
+assert 'NetworkShareService' not in manifest and 'android.permission.CAMERA' not in manifest
+assert 'android.permission.INTERNET' in manifest and 'android.permission.ACCESS_NETWORK_STATE' in manifest
+assert all(key not in gradle for key in ('com.hierynomus:smbj','com.journeyapps:zxing','com.squareup.okhttp3:okhttp'))
 
 # Regressões de interface: ZIP e editor
 assert zip_ui.count('ArchiveCompactActionButton(') == 4  # três usos + declaração

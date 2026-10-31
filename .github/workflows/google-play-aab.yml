@@ -1,0 +1,93 @@
+name: Gerar AAB para Google Play
+
+on:
+  workflow_dispatch:
+
+# Este workflow só compila e armazena o AAB, nunca publica na Play Console.
+permissions:
+  contents: read
+
+jobs:
+  bundle:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Obter código
+        uses: actions/checkout@v4
+
+      - name: Configurar Java 17
+        uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: '17'
+
+      - name: Configurar Gradle 8.13
+        uses: gradle/actions/setup-gradle@v4
+        with:
+          gradle-version: '8.13'
+
+      - name: Configurar Android SDK
+        uses: android-actions/setup-android@v3
+
+      - name: Instalar SDK Android 36
+        run: sdkmanager "platforms;android-36"
+
+      - name: Validar código, metadados e requisitos Play
+        run: |
+          python3 tools/validate_compose_imports.py
+          python3 tools/validate_audio_compose_state.py
+          python3 tools/validate_source.py
+          python3 tools/validate_play_readiness.py
+
+      - name: Testes e lint de release
+        run: gradle :app:testDebugUnitTest :app:lintRelease --stacktrace
+
+      - name: Reconstruir chave de upload privada
+        shell: bash
+        env:
+          ANDROID_KEYSTORE_BASE64: ${{ secrets.ANDROID_KEYSTORE_BASE64 }}
+          ANDROID_KEYSTORE_PASSWORD: ${{ secrets.ANDROID_KEYSTORE_PASSWORD }}
+          ANDROID_KEY_ALIAS: ${{ secrets.ANDROID_KEY_ALIAS }}
+          ANDROID_KEY_PASSWORD: ${{ secrets.ANDROID_KEY_PASSWORD }}
+        run: |
+          set -euo pipefail
+          for value in "$ANDROID_KEYSTORE_BASE64" "$ANDROID_KEYSTORE_PASSWORD" "$ANDROID_KEY_ALIAS" "$ANDROID_KEY_PASSWORD"; do
+            if [[ -z "$value" ]]; then
+              echo "Falta pelo menos um Secret de assinatura Android" >&2
+              exit 1
+            fi
+          done
+          KEYSTORE_PATH="$RUNNER_TEMP/explorador-xp-play-upload.jks"
+          printf '%s' "$ANDROID_KEYSTORE_BASE64" | base64 --decode > "$KEYSTORE_PATH"
+          test -s "$KEYSTORE_PATH"
+          chmod 600 "$KEYSTORE_PATH"
+          echo "ANDROID_KEYSTORE_PATH=$KEYSTORE_PATH" >> "$GITHUB_ENV"
+
+      - name: Gerar AAB assinado
+        env:
+          ANDROID_KEYSTORE_PASSWORD: ${{ secrets.ANDROID_KEYSTORE_PASSWORD }}
+          ANDROID_KEY_ALIAS: ${{ secrets.ANDROID_KEY_ALIAS }}
+          ANDROID_KEY_PASSWORD: ${{ secrets.ANDROID_KEY_PASSWORD }}
+        run: gradle :app:bundleRelease --stacktrace
+
+      - name: Verificar e nomear bundle
+        shell: bash
+        run: |
+          set -euo pipefail
+          VERSION="$(cat VERSION)"
+          SRC="app/build/outputs/bundle/release/app-release.aab"
+          test -s "$SRC"
+          DEST="Explorador-XP-${VERSION}-play.aab"
+          cp "$SRC" "$DEST"
+          unzip -tq "$DEST" | tail -n 1
+          sha256sum "$DEST" > "$DEST.sha256"
+          echo "BUNDLE_NAME=$DEST" >> "$GITHUB_ENV"
+
+      - name: Disponibilizar AAB nos Artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: explorador-xp-play-${{ github.run_number }}
+          path: |
+            ${{ env.BUNDLE_NAME }}
+            ${{ env.BUNDLE_NAME }}.sha256
+          if-no-files-found: error
+          retention-days: 30

@@ -36,7 +36,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 
 /** Apenas módulos existentes: o painel não cria serviços ou permissões adicionais. */
-internal enum class ExplorerToolAction { APPS, STORAGE, DEVICE, SETTINGS, NETWORK, TRASH, HELP, ABOUT }
+internal enum class ExplorerToolAction { APPS, STORAGE, DEVICE, SETTINGS, TRASH, HELP, ABOUT }
 
 private data class ToolShortcut(val action: ExplorerToolAction, val label: String, val icon: Int, val description: String)
 
@@ -44,7 +44,6 @@ private val panelShortcuts = listOf(
     ToolShortcut(ExplorerToolAction.APPS, "Aplicativos", R.drawable.file_apk, "Instalados e uso"),
     ToolShortcut(ExplorerToolAction.STORAGE, "Armazenamento", R.drawable.drive_storage, "Espaço e arquivos"),
     ToolShortcut(ExplorerToolAction.DEVICE, "Dispositivo", R.drawable.device_mobile, "Dados do aparelho"),
-    ToolShortcut(ExplorerToolAction.NETWORK, "Rede local", R.drawable.device_mobile, "Wi-Fi e conexões"),
     ToolShortcut(ExplorerToolAction.TRASH, "Lixeira", R.drawable.trash_empty, "Itens excluídos"),
     ToolShortcut(ExplorerToolAction.SETTINGS, "Configurações", R.drawable.settings, "Preferências do XP"),
     ToolShortcut(ExplorerToolAction.HELP, "Ajuda", R.drawable.help, "Dúvidas e uso"),

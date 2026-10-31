@@ -1,3 +1,19 @@
+## 0.1.0-alpha.140 (2026-10-31)
+
+- Google Play: `compileSdk` e `targetSdk` aumentados para API 36 (Android 16), mantendo `minSdk 26`; AGP 8.13.2 e Gradle 8.13 na configuração de build.
+- Adicionado workflow manual **Gerar AAB para Google Play**, com verificações de código, testes, lint de release, assinatura via Secrets e artefatos AAB/SHA-256.
+- Tela Sobre: nova seção explicativa **Privacidade e permissões**, descrevendo acesso local, instalação de APKs e consultas externas opcionais.
+- Criados guia de publicação, minuta de política de privacidade e teste de prontidão, explicitando declarações obrigatórias de permissões e pendências reais da Play Console.
+- Módulo Rede permanece ausente. Build Android completo, teste em Android 16, URL pública de privacidade e aprovação do Google **não** foram executados nesta versão.
+
+## 0.1.0-alpha.139 (2026-10-31)
+
+- Remove o módulo de Rede local: WebDAV servidor/cliente, SMB, descoberta Wi-Fi, QR para conexão, serviço em segundo plano e respectivas classes/testes.
+- Retira Rede da barra inferior, do painel Ferramentas, dos menus de arquivos/galerias e das rotas internas.
+- Barra inferior adaptada para **Fotos, Vídeos, Downloads, Início, Lixeira, Ferramentas**; seis ícones proporcionalmente maiores e espaçamento uniforme.
+- Remove dependências específicas (SMBJ, ZXing e OkHttp), serviço e permissões desnecessárias ao módulo. Conectividade normal do dispositivo e internet para consulta de dados do dispositivo permanecem.
+- Mantém as funções de arquivos, ZIP, câmera/áudio/vídeo, APK, Lixeira e demais ferramentas. Validação estrutural aprovada; compilação Android completa e testes no aparelho pendentes.
+
 ## 0.1.0-alpha.138 (2026-10-20)
 
 - APK: três selos empilhados à direita passam a usar dimensões idênticas de **142 dp × 34 dp**, independentemente do tamanho do texto.

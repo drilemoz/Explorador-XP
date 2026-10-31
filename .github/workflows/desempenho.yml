@@ -19,10 +19,16 @@ jobs:
           distribution: temurin
           java-version: '17'
 
-      - name: Gradle 8.9
+      - name: Gradle 8.13
         uses: gradle/actions/setup-gradle@v6
         with:
-          gradle-version: '8.9'
+          gradle-version: '8.13'
+
+      - name: Preparar Android SDK 36
+        uses: android-actions/setup-android@v3
+
+      - name: Instalar plataformas para build e emulador
+        run: sdkmanager "platforms;android-36" "platforms;android-33"
 
       - name: Liberar KVM para o emulador
         shell: bash

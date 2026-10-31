@@ -18,9 +18,9 @@ object ReleaseNotes {
             versionCode = BuildConfig.VERSION_CODE,
             title = "O Explorador XP foi atualizado",
             changes = listOf(
-                "Três selos de versão e situação no cabeçalho do APK agora têm a mesma largura e altura, com cantos retos.",
-                "Textos dos selos centralizados, inclusive quando curtos; versões longas mantêm a descrição integral para acessibilidade.",
-                "Mantidas as cores de versão instalada, atualização ou downgrade e os botões Abrir, Gerenciar, Desinstalar e Instalar/Atualizar.",
+                "Preparação para Google Play: Android 16 (API 36) e fluxo separado para gerar App Bundle assinado.",
+                "Seção Privacidade e permissões adicionada à tela Sobre, com esclarecimentos sobre acesso local e consultas externas opcionais.",
+                "Módulo Rede continua removido; gerenciador de arquivos, aplicativos, visualizadores e demais ferramentas preservados.",
             )
         )
 }

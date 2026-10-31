@@ -1,4 +1,6 @@
-> **Versão atual:** 0.1.0-alpha.138 (`versionCode 138`). Os três selos de versão e status do APK ficam empilhados em retângulos de dimensões iguais (142 × 34 dp), cantos retos e texto centralizado; textos extensos são truncados apenas visualmente. Regras de cor e botões preservados. O ZIP segue salvando em Downloads/XP e fechando após sucesso. Build Android e teste físico pendentes.
+> **Versão atual:** 0.1.0-alpha.140 (`versionCode 140`). Preparação para Google Play: SDK/target 36, AAB release assinado em workflow separado, privacidade no app e guia de declarações da Play. Módulo Rede permanece removido; build Android e validação em aparelhos ainda pendentes.
+
+**Google Play:** veja [docs/GOOGLE_PLAY_RELEASE.md](docs/GOOGLE_PLAY_RELEASE.md) e [docs/PRIVACIDADE_RASCUNHO.md](docs/PRIVACIDADE_RASCUNHO.md). O AAB é produzido pelo workflow manual `Gerar AAB para Google Play`; publicação na loja exige passos do desenvolvedor.
 
 **alpha.122 (novidades):** abas Categorias/Pastas/Arquivos no armazenamento, soma verificada ou parcial dos aplicativos quando o Android permite, Maiores/Menores/Instalados/Atualizados nos filtros rápidos, OBB como dados de jogos, filtro por tipo nos maiores arquivos e abertura de artefatos ZIP sem extensão recebidos pelo Abrir com.
 

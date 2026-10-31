@@ -192,7 +192,6 @@ fun ExplorerScreen(
     var showAbout by remember { mutableStateOf(false) }
     var showSettings by remember { mutableStateOf(false) }
     var showDeviceInfo by remember { mutableStateOf(false) }
-    var showNetworkExplorer by remember { mutableStateOf(false) }
     var mediaShortcut by remember { mutableStateOf<MediaShortcutKind?>(null) }
     var showInstalledApps by remember { mutableStateOf(false) }
     var appsOpenedFromStorage by remember { mutableStateOf(false) }
@@ -225,7 +224,6 @@ fun ExplorerScreen(
             ExplorerToolAction.STORAGE -> { showStorageDetails = true; onAnalyzeStorage(false) }
             ExplorerToolAction.DEVICE -> showDeviceInfo = true
             ExplorerToolAction.SETTINGS -> showSettings = true
-            ExplorerToolAction.NETWORK -> showNetworkExplorer = true
             ExplorerToolAction.TRASH -> { showTrash = true; onLoadTrash() }
             ExplorerToolAction.HELP -> showManual = true
             ExplorerToolAction.ABOUT -> showAbout = true
@@ -234,7 +232,6 @@ fun ExplorerScreen(
 
     // Navegação fixa: mantém a barra de atalhos visível em todas as telas internas.
     fun navigateShortcut(destination: ExplorerQuickDestination) {
-        showNetworkExplorer = false
         showDeviceInfo = false
         showInstalledApps = false
         showSettings = false
@@ -253,13 +250,12 @@ fun ExplorerScreen(
                 onTabChange(ExplorerTab.FILES)
                 onHome()
             }
-            ExplorerQuickDestination.NETWORK -> showNetworkExplorer = true
             ExplorerQuickDestination.TRASH -> { showTrash = true; onLoadTrash() }
             ExplorerQuickDestination.TOOLS -> showToolsPanel = true
         }
     }
 
-    val secondaryPage = showNetworkExplorer || showDeviceInfo || showInstalledApps ||
+    val secondaryPage = showDeviceInfo || showInstalledApps ||
         showSettings || showTrash || showToolsPanel || showAbout || showManual || showStorageDetails || mediaShortcut != null
     if (secondaryPage) {
         Column(modifier = modifier.fillMaxSize().background(XpBackground)) {
@@ -289,14 +285,12 @@ fun ExplorerScreen(
                         onPasteInto = onPasteInto,
                         canPaste = state.clipboard != null,
                         onShowInstalledApps = { mediaShortcut = null; showInstalledApps = true },
-                        onShowNetwork = { mediaShortcut = null; showNetworkExplorer = true },
                         onShowSettings = { mediaShortcut = null; showSettings = true },
                         onShowDeviceInfo = { mediaShortcut = null; showDeviceInfo = true },
                         onShowManual = { mediaShortcut = null; showManual = true },
                         onShowAbout = { mediaShortcut = null; showAbout = true },
                         onOpenTrash = { mediaShortcut = null; showTrash = true; onLoadTrash() },
                     )
-                    showNetworkExplorer -> NetworkExplorerScreen(onDismiss = { showNetworkExplorer = false; returnFromTool() })
                     showDeviceInfo -> DeviceInfoScreen(onDismiss = { showDeviceInfo = false; returnFromTool() })
                     showInstalledApps -> InstalledAppsManagerScreen(
                         onDismiss = { showInstalledApps = false; appsOpenedFromStorage = false; returnFromTool() },
@@ -346,7 +340,6 @@ fun ExplorerScreen(
                 active = when {
                     mediaShortcut == MediaShortcutKind.PHOTOS -> ExplorerQuickDestination.PHOTOS
                     mediaShortcut == MediaShortcutKind.VIDEOS -> ExplorerQuickDestination.VIDEOS
-                    showNetworkExplorer -> ExplorerQuickDestination.NETWORK
                     showTrash -> ExplorerQuickDestination.TRASH
                     showToolsPanel -> ExplorerQuickDestination.TOOLS
                     else -> null
@@ -442,7 +435,6 @@ fun ExplorerScreen(
             onShowAbout = { showAbout = true },
             onShowSettings = { showSettings = true },
             onShowDeviceInfo = { showDeviceInfo = true },
-            onShowNetwork = { showNetworkExplorer = true },
             onShowInstalledApps = { showInstalledApps = true },
             selectedArchive = state.selectedPaths.singleOrNull()?.let(::File)?.takeIf { it.isFile && it.extension.equals("zip", ignoreCase = true) },
             onOpenSelectedArchive = { target -> onClearSelection(); onOpenTarget(target) },
@@ -766,7 +758,6 @@ private fun XpHeader(
     onShowAbout: () -> Unit,
     onShowSettings: () -> Unit,
     onShowDeviceInfo: () -> Unit,
-    onShowNetwork: () -> Unit,
     onShowInstalledApps: () -> Unit,
     selectedArchive: File?,
     onOpenSelectedArchive: (File) -> Unit,
@@ -939,7 +930,6 @@ private fun XpHeader(
 
                 XpExplorerToolsMenu(
                     onApps = onShowInstalledApps,
-                    onNetwork = onShowNetwork,
                     onSettings = onShowSettings,
                     onDevice = onShowDeviceInfo,
                 )
@@ -1464,13 +1454,13 @@ private fun SectionTitle(title: String, icon: Int) {
 private fun HelpManualScreen(onDismiss: () -> Unit) {
     var expandedTopic by remember { mutableStateOf("Começando") }
     val topics = listOf(
-        "Começando" to "Use a barra superior para navegar e operar arquivos; Fotos, Vídeos, Downloads, Rede, Lixeira e Ferramentas ficam na barra inferior fixa. Exibir contém classificação, lista compacta e Atualizar. Toque em um arquivo para abrir e segure para selecionar.",
+        "Começando" to "Use a barra superior para navegar e operar arquivos; Fotos, Vídeos, Downloads, Início, Lixeira e Ferramentas ficam na barra inferior fixa. Exibir contém classificação, lista compacta e Atualizar. Toque em um arquivo para abrir e segure para selecionar.",
         "Navegação" to "O campo Endereço funciona como caminho navegável. Toque em uma parte do caminho para voltar diretamente até ela. A seta ao lado do endereço permite trocar entre armazenamentos detectados. O gesto Voltar do Android percorre o histórico das pastas abertas.",
         "Arquivos e pastas" to "A lista e a grade mostram o tipo do arquivo, tamanho e outras informações úteis. O botão de opções abre ações como copiar, mover, renomear, excluir, compartilhar, favoritar e ver propriedades.",
         "Copiar e mover" to "Selecione itens e use Copiar ou Mover. Depois navegue até o destino e use Colar. Quando há algo na área de transferência, o botão Colar aparece na barra superior.",
         "Compactar ZIP" to "Selecione um ou vários arquivos/pastas e use o atalho ZIP da barra de seleção. Defina o nome e o destino; o app preserva pastas, mostra progresso e permite cancelar.",
         "Lixeira" to "Ao excluir, escolha entre Mover para a Lixeira e Apagar permanentemente. A barra inferior traz a contagem sobre o ícone e o espaço ocupado ao lado em formato curto; o total aparece na tela Lixeira. Os itens não expiram automaticamente. Na Lixeira você pode restaurar, apagar definitivamente ou esvaziar tudo.",
-        "Painel de Ferramentas" to "Abra Ferramentas na barra inferior para acessar em uma grade Aplicativos, Armazenamento, Dispositivo, Rede, Lixeira, Configurações, Ajuda e Sobre. Classificar por Nome/Data/Tamanho/Tipo, Pastas primeiro e Lista compacta ficam no menu Exibir.",
+        "Painel de Ferramentas" to "Abra Ferramentas na barra inferior para acessar em uma grade Aplicativos, Armazenamento, Dispositivo, Lixeira, Configurações, Ajuda e Sobre. Classificar por Nome/Data/Tamanho/Tipo, Pastas primeiro e Lista compacta ficam no menu Exibir.",
         "Armazenamento" to "A barra inferior mostra os valores gerais do volume informados pelo Android. Na tela Armazenamento, esses números ficam separados dos arquivos efetivamente analisados pelo Explorador XP. Categorias e pastas usam somente o conjunto que pôde ser enumerado; áreas protegidas não são estimadas.",
         "Aplicativos instalados" to "Em Ferramentas > Aplicativos instalados você pode pesquisar apps de usuário e do sistema, consultar versão, tamanho, SDK, datas, instalador e permissões. Sem Acesso ao uso, o tamanho mostrado é somente o dos APKs instalados; com essa autorização, o Android também fornece código, dados e cache. Desinstalar usa a confirmação do sistema. Por proteção do Android, Limpar dados abre os detalhes oficiais do aplicativo para você concluir a ação.",
         "Pesquisa" to "Use Pesquisar para filtrar rapidamente os itens da pasta atual. Ao entrar na busca, a interface é compactada para dar mais espaço aos resultados e ao teclado.",
@@ -1754,6 +1744,31 @@ private fun AboutScreen(
                 PropertyLine("Versão", BuildConfig.VERSION_NAME)
                 PropertyLine("versionCode", BuildConfig.VERSION_CODE.toString())
                 PropertyLine("Desenvolvedor", "Adriedson Lemos")
+            }
+
+            Spacer(Modifier.height(10.dp))
+            AboutSectionCard("Privacidade e permissões", R.drawable.info) {
+                Text(
+                    "O Explorador XP acessa arquivos e pastas do dispositivo para listar, abrir, copiar, mover, compactar e excluir itens somente conforme as operações realizadas pelo usuário. " +
+                        "A lista de aplicativos instalados pode ser consultada para exibir e gerenciar apps. " +
+                        "Os dados consultados nessas funções são processados no aparelho.",
+                    fontSize = 11.5.sp, color = Color(0xFF303030), lineHeight = 16.sp,
+                )
+                Spacer(Modifier.height(5.dp))
+                Text(
+                    "Consultas externas opcionais: ao ativar pesquisa de identificação ou imagens de aparelhos, " +
+                        "o app pode acessar catálogos públicos do Google, Wikidata e Wikimedia Commons pela internet. " +
+                        "Esses provedores recebem informações técnicas da conexão e os termos consultados, " +
+                        "sujeitos às políticas deles. As consultas podem ser desligadas nas Configurações.",
+                    fontSize = 11.5.sp, color = Color(0xFF303030), lineHeight = 16.sp,
+                )
+                Spacer(Modifier.height(5.dp))
+                Text(
+                    "Compartilhar arquivos com outros aplicativos depende de ação explícita e do seletor do Android. " +
+                        "Acesso a todos os arquivos, visibilidade de aplicativos e instalação de APKs " +
+                        "são usados nas funções de gerenciamento e dependem das autorizações do sistema.",
+                    fontSize = 11.5.sp, color = Color(0xFF303030), lineHeight = 16.sp,
+                )
             }
 
             Spacer(Modifier.height(10.dp))

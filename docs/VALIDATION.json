@@ -1,11 +1,11 @@
 {
-  "version_build": "0.1.0-alpha.138",
-  "version_code": 138,
-  "manager_version": "0.1.0-alpha.138",
+  "version_build": "0.1.0-alpha.140",
+  "version_code": 140,
+  "manager_version": "0.1.0-alpha.140",
   "notes": [
-    "Cabeçalho APK: três retângulos verticais à direita com largura uniforme de 142 dp e altura uniforme de 34 dp, sem arredondamento.",
-    "Texto centralizado nos três selos; valores longos com reticências e descrição completa para acessibilidade.",
-    "Preservada a relação cromática: vermelho na versão antiga, verde na nova, azul na equivalente.",
-    "Validação estrutural aprovada; build Android e testes visuais em aparelho pendentes."
+    "Play: Android API 36; AGP 8.13.2 e Gradle 8.13 nos workflows; minSdk 26 preservado. Workflows Gerar APK e Desempenho também ajustados para Gradle 8.13.",
+    "Novo workflow manual gera AAB release assinado e SHA-256, com gates de teste, lint e Secrets; não publica automaticamente.",
+    "Privacidade e permissões explicadas em Sobre; guias/declarações Play incluídos.",
+    "Build Android real, verificações no Android 16, política pública e aprovação Play pendentes."
   ]
 }

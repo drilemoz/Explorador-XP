@@ -7,13 +7,12 @@ import org.junit.Test
 import java.io.File
 
 class ExplorerQuickAccessTest {
-    @Test fun bottomBarKeepsSevenShortcutsWithHomeCentered() {
+    @Test fun bottomBarKeepsSixShortcutsWithoutNetwork() {
         assertEquals(listOf(
             ExplorerQuickDestination.PHOTOS,
             ExplorerQuickDestination.VIDEOS,
             ExplorerQuickDestination.DOWNLOADS,
             ExplorerQuickDestination.HOME,
-            ExplorerQuickDestination.NETWORK,
             ExplorerQuickDestination.TRASH,
             ExplorerQuickDestination.TOOLS,
         ), ExplorerQuickDestination.values().toList())

@@ -91,7 +91,7 @@ import java.text.DateFormat
 import java.util.Date
 
 /** Barra persistente para o explorador e todas as páginas internas. */
-internal enum class ExplorerQuickDestination { PHOTOS, VIDEOS, DOWNLOADS, HOME, NETWORK, TRASH, TOOLS }
+internal enum class ExplorerQuickDestination { PHOTOS, VIDEOS, DOWNLOADS, HOME, TRASH, TOOLS }
 internal enum class MediaShortcutKind { PHOTOS, VIDEOS }
 
 @Composable
@@ -106,7 +106,6 @@ internal fun ExplorerQuickAccessBar(
         Triple(ExplorerQuickDestination.VIDEOS, "Vídeos", R.drawable.xp_folder_video),
         Triple(ExplorerQuickDestination.DOWNLOADS, "Downloads", R.drawable.folder_downloads),
         Triple(ExplorerQuickDestination.HOME, "Início", R.drawable.xp_home),
-        Triple(ExplorerQuickDestination.NETWORK, "Rede", R.drawable.device_mobile),
         Triple(ExplorerQuickDestination.TRASH, "Lixeira", if ((trashCount ?: 0) > 0) R.drawable.trash_full else R.drawable.trash_empty),
         Triple(ExplorerQuickDestination.TOOLS, "Ferramentas", R.drawable.settings),
     )
@@ -115,7 +114,7 @@ internal fun ExplorerQuickAccessBar(
             .background(XpChrome)
             .border(1.dp, XpChromeBorder)
             .height(72.dp)
-            .padding(horizontal = 2.dp),
+            .padding(horizontal = 5.dp),
         verticalAlignment = Alignment.CenterVertically,
     ) {
         tabs.forEach { (destination, label, drawable) ->
@@ -134,7 +133,7 @@ internal fun ExplorerQuickAccessBar(
                     horizontalArrangement = Arrangement.Center,
                     verticalAlignment = Alignment.CenterVertically,
                 ) {
-                    Box(modifier = Modifier.size(24.dp), contentAlignment = Alignment.Center) {
+                    Box(modifier = Modifier.size(28.dp), contentAlignment = Alignment.Center) {
                         Image(
                             painter = painterResource(drawable),
                             contentDescription = if (isTrash) {
@@ -142,7 +141,7 @@ internal fun ExplorerQuickAccessBar(
                                     ?: "contagem não carregada"
                                 "Lixeira: $amount, ${trashBytes?.let { "$it bytes" } ?: "espaço não carregado"}"
                             } else label,
-                            modifier = Modifier.size(23.dp),
+                            modifier = Modifier.size(26.dp),
                         )
                         if (isTrash && trashCount != null && trashCount > 0) {
                             Text(
@@ -156,7 +155,7 @@ internal fun ExplorerQuickAccessBar(
                     }
                 }
                 Spacer(Modifier.height(2.dp))
-                Text(label, fontSize = 9.sp, maxLines = 1,
+                Text(label, fontSize = 10.sp, maxLines = 1,
                     fontWeight = if (selected) FontWeight.Bold else FontWeight.Medium,
                     color = if (selected) XpBlueDark else Color(0xFF253B56),
                     overflow = TextOverflow.Ellipsis)
@@ -343,7 +342,6 @@ internal fun MediaShortcutScreen(
     onPasteInto: (File) -> Unit,
     canPaste: Boolean,
     onShowInstalledApps: () -> Unit,
-    onShowNetwork: () -> Unit,
     onShowSettings: () -> Unit,
     onShowDeviceInfo: () -> Unit,
     onShowManual: () -> Unit,
@@ -672,7 +670,6 @@ internal fun MediaShortcutScreen(
             }
             XpExplorerToolsMenu(
                 onApps = onShowInstalledApps,
-                onNetwork = onShowNetwork,
                 onSettings = onShowSettings,
                 onDevice = onShowDeviceInfo,
             )
@@ -839,7 +836,7 @@ internal fun MediaShortcutScreen(
                                 if (kind == MediaShortcutKind.VIDEOS && item.durationMillis > 0L)
                                     Text(galleryDuration(item.durationMillis),
                                         Modifier.align(Alignment.BottomEnd).background(Color(0xCC111B2B))
-                                            .padding(horizontal = 2.dp), color = Color.White, fontSize = 9.sp)
+                                            .padding(horizontal = 5.dp), color = Color.White, fontSize = 9.sp)
                             }
                             Spacer(Modifier.width(10.dp))
                             Column(Modifier.weight(1f)) {

@@ -77,7 +77,6 @@ internal fun RowScope.XpNavigationButtons(commands: XpNavigationCommands) {
 @Composable
 internal fun XpExplorerToolsMenu(
     onApps: () -> Unit,
-    onNetwork: () -> Unit,
     onSettings: () -> Unit,
     onDevice: () -> Unit,
 ) {
@@ -86,7 +85,6 @@ internal fun XpExplorerToolsMenu(
         XpMenuLabel("Ferramentas", expanded) { expanded = true }
         XpPopupMenu(expanded, { expanded = false }) {
             XpMenuItem("Aplicativos instalados", R.drawable.file_apk) { expanded = false; onApps() }
-            XpMenuItem("Rede local (WebDAV)", R.drawable.device_mobile) { expanded = false; onNetwork() }
             XpMenuDivider()
             XpMenuItem("Configurações", R.drawable.settings) { expanded = false; onSettings() }
             XpMenuItem("Informações do dispositivo", R.drawable.device_mobile) { expanded = false; onDevice() }

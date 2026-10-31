@@ -1,4 +1,4 @@
-> **Versão atual:** 0.1.0-alpha.142 (`versionCode 142`). Navegação ajustada: Lixeira no fim da barra superior com contador e Início na terceira posição da barra inferior, seguido de Downloads. A proposta de listar toda a mídia em Fotos/Vídeos foi analisada, mas ainda não implementada. Preparação API 36/Google Play preservada; build Android ainda pendente.
+> **Versão atual:** 0.1.0-alpha.143 (`versionCode 143`). Fotos e Vídeos abrem diretamente a biblioteca de mídia do dispositivo (MediaStore), com grade, busca por nome, filtros, paginação e seleção múltipla. Ferramentas virou painel modal compacto de duas linhas para eliminar a tela vazia. API 36 e preparação para Google Play preservadas; build Android e testes em aparelho pendentes.
 
 **Google Play:** veja [docs/GOOGLE_PLAY_RELEASE.md](docs/GOOGLE_PLAY_RELEASE.md) e [docs/PRIVACIDADE_RASCUNHO.md](docs/PRIVACIDADE_RASCUNHO.md). O AAB é produzido pelo workflow manual `Gerar AAB para Google Play`; publicação na loja exige passos do desenvolvedor.
 

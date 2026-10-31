@@ -1,4 +1,13 @@
-## 0.1.0-alpha.142 (2026-10-31)
+## 0.1.0-alpha.143 (2026-10-31)
+
+- Fotos/Vídeos: substituída a entrada por pastas por biblioteca unificada de arquivos do MediaStore, separada por tipo, com miniaturas em grade inicialmente e opção de lista.
+- Pesquisa por nome e seleção total abrangem os arquivos encontrados pelo MediaStore, independentemente da pasta; paginação de 96 itens mantida.
+- Menu reorganizado: filtros por origem preservados, ações de criação/colar sem pasta de destino removidas das galerias, sem alterar as ações do explorador.
+- Ferramentas: transformado o painel de página inteira em diálogo modal compacto com duas linhas de atalhos, sem área em branco abaixo dos ícones.
+- Mantidas as permissões, versão-alvo Android 16/API 36 e preparações para Google Play.
+- Testes estáticos passam; build e teste de interface no aparelho ainda não realizados.
+
+## 0.1.0-alpha.143 (2026-10-31)
 
 - Navegação: removido o botão **Início** duplicado da barra superior e adicionado o atalho **Lixeira** ao fim dessa barra, com ícone vazio/cheio e contador abreviado de itens.
 - Barra inferior com cinco destinos nesta ordem: **Fotos, Vídeos, Início, Downloads, Ferramentas**. O Início ocupa a antiga posição de Downloads, que passa à quarta posição.

@@ -1,16 +1,20 @@
-# Explorador XP 0.1.0-alpha.142
+# Explorador XP 0.1.0-alpha.143
 
-**Versão:** `0.1.0-alpha.142`  
-**versionCode:** `142`
+**Versão:** `0.1.0-alpha.143`  
+**versionCode:** `143`
 
 ## Alterações
 
-- Lixeira movida da barra inferior para a extremidade direita da barra superior, mantendo indicador de itens.
-- Início removido da barra superior, já que possui atalho na barra inferior.
-- Atalhos inferiores: Fotos | Vídeos | Início | Downloads | Ferramentas.
-- Preservadas navegação, seleção e ações de arquivos, assim como a preparação para API 36 e Google Play.
-- Análise documentada para futura galeria de arquivos sem a etapa inicial de pastas; não alterada nesta versão.
+- Fotos: abre diretamente os arquivos de imagem acessíveis no aparelho, sem lista inicial de pastas.
+- Vídeos: abre diretamente os arquivos de vídeo acessíveis, com miniaturas em grade por padrão e possibilidade de alternar para lista.
+- Busca por nome agora filtra o índice completo antes da paginação de 96 arquivos; filtros Câmera/Capturas/Downloads/Outros e seleção total operam sobre todos os resultados encontrados.
+- Menu da galeria não permite criar pasta/colar sem um destino selecionado; essas ações permanecem disponíveis no explorador de arquivos.
+- Ferramentas: substituída a página branca quase vazia por um diálogo compacto com os sete atalhos organizados em duas linhas, sobre a navegação existente.
+- Barra inferior preservada: Fotos, Vídeos, Início, Downloads e Ferramentas.
+- Preparação API 36, Play Store, assinatura AAB e outros módulos preservados.
 
-## Verificações pendentes
+## Validação e limites
 
-A compilação Android e os testes em aparelho não foram executados neste ambiente.
+- Validação estrutural e de integridade do código e dos metadados executada.
+- MediaStore não dá acesso a arquivos privados, ocultos ou não indexados pelo Android.
+- Build Gradle/Android, confirmação de interação e teste visual em aparelho seguem pendentes.

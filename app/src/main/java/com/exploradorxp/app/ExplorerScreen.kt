@@ -254,15 +254,11 @@ fun ExplorerScreen(
     }
 
     val secondaryPage = showDeviceInfo || showInstalledApps ||
-        showSettings || showTrash || showToolsPanel || showAbout || showManual || showStorageDetails || mediaShortcut != null
+        showSettings || showTrash || showAbout || showManual || showStorageDetails || mediaShortcut != null
     if (secondaryPage) {
         Column(modifier = modifier.fillMaxSize().background(XpBackground)) {
             Box(modifier = Modifier.weight(1f).fillMaxWidth()) {
                 when {
-                    showToolsPanel -> ToolsPanelScreen(
-                        onOpenTool = ::openPanelTool,
-                        onDismiss = { showToolsPanel = false },
-                    )
                     mediaShortcut != null -> MediaShortcutScreen(
                         kind = mediaShortcut!!,
                         accessGranted = accessGranted,
@@ -278,10 +274,6 @@ fun ExplorerScreen(
                         transferState = transferState,
                         onFavoriteFile = onToggleFavorite,
                         onCompressFiles = { archiveCreateSources = it; mediaShortcut = null },
-                        onCreateFolderAt = onCreateFolderAt,
-                        onCreateFileAt = onCreateFileAt,
-                        onPasteInto = onPasteInto,
-                        canPaste = state.clipboard != null,
                         onShowInstalledApps = { mediaShortcut = null; showInstalledApps = true },
                         onShowSettings = { mediaShortcut = null; showSettings = true },
                         onShowDeviceInfo = { mediaShortcut = null; showDeviceInfo = true },
@@ -542,7 +534,7 @@ fun ExplorerScreen(
             },
         )
         ExplorerQuickAccessBar(
-            active = when (state.tab) {
+            active = if (showToolsPanel) ExplorerQuickDestination.TOOLS else when (state.tab) {
                 ExplorerTab.DOWNLOADS -> ExplorerQuickDestination.DOWNLOADS
                 ExplorerTab.FILES -> ExplorerQuickDestination.HOME
                 else -> null
@@ -685,6 +677,13 @@ fun ExplorerScreen(
                 showAdvancedSearchFilters = false
                 onApplyAdvancedSearch(filters, sortMode)
             },
+        )
+    }
+
+    if (showToolsPanel) {
+        ToolsPanelScreen(
+            onOpenTool = ::openPanelTool,
+            onDismiss = { showToolsPanel = false },
         )
     }
 

@@ -1,11 +1,12 @@
 {
-  "version_build": "0.1.0-alpha.142",
-  "version_code": 142,
-  "manager_version": "0.1.0-alpha.142",
+  "version_build": "0.1.0-alpha.143",
+  "version_code": 143,
+  "manager_version": "0.1.0-alpha.143",
   "notes": [
-    "Barra inferior: 5 atalhos Fotos/Vídeos/Início/Downloads/Ferramentas, nesta ordem.",
-    "Barra superior: removido Início duplicado; Lixeira inserida após Favoritos/Colar, com contador e navegação para a Lixeira.",
-    "Galerias Fotos/Vídeos continuam abrindo pastas; somente análise de futura visualização agregada de arquivos por padrão.",
-    "Testes estruturais locais executados; Gradle/Android e testes em aparelho pendentes."
+    "Fotos e Vídeos: consulta agregada pelo MediaStore sem etapa inicial por pastas; dois tipos separados.",
+    "Busca por nome é aplicada antes da paginação, e seleção total respeita busca e filtros.",
+    "Galerias preservam grade/lista, miniaturas, paginação 96, abertura, seleção e ações de arquivos.",
+    "Ferramentas: diálogo modal compacto com sete atalhos em duas linhas, sem página vazia.",
+    "Limites: mídia indexada e acessível via Android; teste Gradle/Android e inspeção em aparelho pendentes."
   ]
 }

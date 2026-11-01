@@ -1,11 +1,11 @@
 {
-  "version_build": "0.1.0-alpha.144",
-  "version_code": 144,
-  "manager_version": "0.1.0-alpha.144",
+  "version_build": "0.1.0-alpha.145",
+  "version_code": 145,
+  "manager_version": "0.1.0-alpha.145",
   "notes": [
-    "Barra de seleção do explorador com botão direto Selecionar todos, sem depender do menu Mais.",
-    "Barra de seleção das galerias de Fotos/Vídeos também mostra Selecionar todos diretamente.",
-    "Galerias unificadas e painel Ferramentas compacto preservados.",
-    "Build Gradle/Android e inspeção visual em dispositivo ainda pendentes."
+    "Corrigida a falha do workflow Gerar APK 135: selectAll() inexistente em ExplorerQuickAccess.kt foi substituída por updateAllSelection(false).",
+    "Selecionar todos nas galerias usa MediaShortcutIndex.allMatchingPaths e mantém a seleção sobre mídias além da página atual.",
+    "Regressão coberta em tools/validate_source.py, executado no GitHub Actions Gerar APK.",
+    "Validação estática local e ZIP realizados; build real Android/Gradle, testes físicos e Play Console pendentes."
   ]
 }

@@ -80,6 +80,13 @@ assert 'onTrash = onOpenTrash' in nav and 'trashCount = trashCount' in nav
 assert 'ExplorerQuickDestination.TRASH' not in nav and 'ExplorerQuickDestination.TRASH' not in screen
 assert 'ExplorerQuickDestination.HOME, "Início"' in nav and 'ExplorerQuickDestination.DOWNLOADS, "Downloads"' in nav
 assert nav.index('ExplorerQuickDestination.HOME, "Início"') < nav.index('ExplorerQuickDestination.DOWNLOADS, "Downloads"')
+# Regressão build 135: a barra de seleção da galeria precisa chamar a função existente
+# que seleciona todas as mídias correspondentes, inclusive as não paginadas.
+assert 'XpClassicToolButton(R.drawable.select_all, "Sel. todos", !copying && !selectingAll, { updateAllSelection(false) }' in nav
+assert 'fun updateAllSelection(invert: Boolean)' in nav
+assert 'MediaShortcutIndex.allMatchingPaths(context, kind, sort, origin, searchQuery)' in nav
+assert '{ selectAll() }' not in nav
+assert 'XpClassicToolButton(R.drawable.select_all, "Sel. todos", true, onSelectAll' in screen
 assert 'NETWORK' not in nav and 'onShowNetwork' not in nav and 'onShowNetwork' not in screen
 assert 'NetworkExplorerScreen' not in screen and 'onNetwork' not in screen
 assert 'Modifier.size(28.dp)' in nav and 'Modifier.size(26.dp)' in nav and 'Text(label, fontSize = 10.sp' in nav

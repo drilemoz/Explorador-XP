@@ -31,7 +31,10 @@ assert 'showSettings || showTrash || showAbout' in main
 assert 'showTrash || showToolsPanel' not in main
 assert 'if (showToolsPanel) {' in main and 'ToolsPanelScreen(' in main
 assert 'active = if (showToolsPanel) ExplorerQuickDestination.TOOLS' in main
-print('OK alpha.143+: galeria global, filtros e seleção paginados, painel Ferramentas modal compacto e Selecionar todos direto')
+print('OK alpha.143+: galeria global, filtros e seleção paginados, painel Ferramentas modal compacto')
 
-assert 'Sel. todos' in gallery
-assert 'Sel. todos' in main
+assert 'XpClassicToolButton(R.drawable.select_all, "Sel. todos", !copying && !selectingAll, { updateAllSelection(false) }' in gallery
+assert 'XpClassicToolButton(R.drawable.select_all, "Sel. todos", true, onSelectAll' in main
+assert '{ selectAll() }' not in gallery
+assert 'MediaShortcutIndex.allMatchingPaths(context, kind, sort, origin, searchQuery)' in gallery
+print('OK alpha.145: Selecionar todos da galeria chama updateAllSelection(false) e consulta todas as mídias')

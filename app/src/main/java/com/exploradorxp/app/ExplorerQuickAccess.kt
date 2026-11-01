@@ -573,7 +573,7 @@ internal fun MediaShortcutScreen(
                 XpClassicToolButton(R.drawable.share, "Compart.", !copying, { shareSelected() }, Modifier.weight(1f), compact = true)
                 XpClassicToolButton(R.drawable.folder_compressed, "ZIP", !copying, { compressSelected() }, Modifier.weight(1f), compact = true)
                 XpClassicToolButton(R.drawable.delete, "Excluir", !copying, { deleteSelected() }, Modifier.weight(1f), compact = true)
-                XpClassicToolButton(R.drawable.select_all, "Sel. todos", !copying && !selectingAll, { selectAll() }, Modifier.weight(1f), compact = true)
+                XpClassicToolButton(R.drawable.select_all, "Sel. todos", !copying && !selectingAll, { updateAllSelection(false) }, Modifier.weight(1f), compact = true)
                 Box(Modifier.weight(1f).fillMaxHeight()) {
                     XpClassicToolButton(R.drawable.more, "Mais", true, { moreMenu = true }, Modifier.fillMaxWidth(), compact = true)
                     XpPopupMenu(moreMenu, { moreMenu = false }) {

@@ -18,9 +18,9 @@ object ReleaseNotes {
             versionCode = BuildConfig.VERSION_CODE,
             title = "O Explorador XP foi atualizado",
             changes = listOf(
-                "A barra de seleção agora mostra Selecionar todos diretamente no explorador, sem depender do menu Mais.",
-                "Fotos e Vídeos receberam o mesmo atalho Selecionar todos na barra de seleção das galerias.",
-                "Ferramentas continua em painel compacto e as galerias seguem abrindo diretamente os arquivos de mídia do dispositivo.",
+                "Corrigida a falha de compilação do botão Sel. todos nas galerias de Fotos e Vídeos.",
+                "Selecionar todos continua abrangendo todas as mídias compatíveis, além das páginas já carregadas.",
+                "Preservados o botão de seleção direta no explorador, as galerias unificadas e o painel Ferramentas compacto.",
             )
         )
 }

@@ -1,16 +1,16 @@
-# Explorador XP 0.1.0-alpha.144
+# Explorador XP 0.1.0-alpha.145
 
-**Versão:** `0.1.0-alpha.144`  
-**versionCode:** `144`
+**Versão:** `0.1.0-alpha.145`  
+**versionCode:** `145`
 
-## Destaques
+## Correção do build Gerar APK 135
 
-- Barra de seleção do explorador agora mostra **Selecionar todos** diretamente, sem precisar abrir o menu **Mais**.
-- Fotos e Vídeos receberam o mesmo atalho direto **Selecionar todos** na barra de seleção.
-- O menu **Mais** foi preservado para ações secundárias, como propriedades e extras específicos de arquivos compactados.
-- Mantidas as mudanças recentes das galerias unificadas e do painel Ferramentas compacto.
+- Corrige `Unresolved reference 'selectAll'` em `ExplorerQuickAccess.kt:576`, apontado pelo compilador Kotlin no workflow `Gerar APK 135`.
+- Botão **Sel. todos** de Fotos e Vídeos passa a executar `updateAllSelection(false)`, a função já implementada para selecionar todas as mídias compatíveis com os filtros, inclusive além da página atual.
+- Adiciona checagem de regressão em `tools/validate_source.py`, usada no workflow, sem alterar a lógica existente do MediaStore e do explorador principal.
+- Preserva os cinco atalhos inferiores, o painel Ferramentas compacto, SDK 36 e as preparações para Google Play.
 
 ## Validação
 
-- Validações locais de estrutura e sintaxe concluídas.
-- Build Android completo e testes físicos ainda pendentes nesta entrega.
+- Validadores estáticos e integridade do ZIP executados localmente.
+- Compilação completa pelo Gradle/Android e teste em aparelho ainda precisam ser feitos após atualizar o repositório.

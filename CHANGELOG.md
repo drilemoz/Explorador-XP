@@ -1,4 +1,12 @@
-## 0.1.0-alpha.144 (2026-10-31)
+## 0.1.0-alpha.145 (2026-11-01)
+
+- **Build 135:** corrigido o erro do Kotlin `Unresolved reference 'selectAll'` em `ExplorerQuickAccess.kt:576`.
+- Galerias Fotos e Vídeos: o botão direto **Sel. todos** agora chama a função existente `updateAllSelection(false)`, que usa `MediaShortcutIndex.allMatchingPaths` e considera todos os arquivos encontrados, não somente os primeiros 96 exibidos.
+- Adicionada verificação preventiva dessa ligação ao `tools/validate_source.py`, já executado pelo workflow `Gerar APK`, e ampliado o teste de regressão das galerias.
+- Mantidos os demais controles da alpha.144, API 36 e preparação para Google Play.
+- Validação local não substitui novo build Android e testes no aparelho.
+
+## 0.1.0-alpha.145 (2026-10-31)
 
 - Seleção: adicionada a ação **Selecionar todos** diretamente na barra de seleção do explorador de arquivos, sem depender do menu **Mais**.
 - Galerias: Fotos e Vídeos agora também mostram **Selecionar todos** na barra de seleção, além do menu de ações secundárias.

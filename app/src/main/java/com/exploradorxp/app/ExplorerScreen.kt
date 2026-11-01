@@ -946,6 +946,7 @@ private fun XpHeader(
                     XpClassicToolButton(R.drawable.share, "Compart.", true, onShareSelection, Modifier.weight(1f), compact = true)
                     XpClassicToolButton(R.drawable.folder_compressed, "ZIP", true, onCompressSelection, Modifier.weight(1f), compact = true)
                     XpClassicToolButton(R.drawable.delete, "Excluir", true, onDeleteSelection, Modifier.weight(1f), compact = true)
+                    XpClassicToolButton(R.drawable.select_all, "Sel. todos", true, onSelectAll, Modifier.weight(1f), compact = true)
                     Box(modifier = Modifier.weight(1f).fillMaxHeight()) {
                         XpClassicToolButton(
                             R.drawable.more,

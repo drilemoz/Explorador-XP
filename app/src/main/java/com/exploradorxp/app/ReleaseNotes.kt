@@ -18,9 +18,9 @@ object ReleaseNotes {
             versionCode = BuildConfig.VERSION_CODE,
             title = "O Explorador XP foi atualizado",
             changes = listOf(
-                "Fotos e Vídeos agora exibem diretamente os arquivos de mídia do dispositivo, sem abrir uma lista inicial de pastas.",
-                "Galerias com miniaturas, pesquisa por nome em todas as mídias encontradas, filtros por origem e seleção múltipla.",
-                "Ferramentas agora abre em um painel compacto de duas linhas, eliminando a página quase toda vazia.",
+                "A barra de seleção agora mostra Selecionar todos diretamente no explorador, sem depender do menu Mais.",
+                "Fotos e Vídeos receberam o mesmo atalho Selecionar todos na barra de seleção das galerias.",
+                "Ferramentas continua em painel compacto e as galerias seguem abrindo diretamente os arquivos de mídia do dispositivo.",
             )
         )
 }

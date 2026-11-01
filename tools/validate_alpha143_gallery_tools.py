@@ -31,4 +31,7 @@ assert 'showSettings || showTrash || showAbout' in main
 assert 'showTrash || showToolsPanel' not in main
 assert 'if (showToolsPanel) {' in main and 'ToolsPanelScreen(' in main
 assert 'active = if (showToolsPanel) ExplorerQuickDestination.TOOLS' in main
-print('OK alpha.143: galeria global, filtros e seleção paginados, painel Ferramentas modal compacto')
+print('OK alpha.143+: galeria global, filtros e seleção paginados, painel Ferramentas modal compacto e Selecionar todos direto')
+
+assert 'Sel. todos' in gallery
+assert 'Sel. todos' in main

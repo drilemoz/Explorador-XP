@@ -1,12 +1,11 @@
 {
-  "version_build": "0.1.0-alpha.143",
-  "version_code": 143,
-  "manager_version": "0.1.0-alpha.143",
+  "version_build": "0.1.0-alpha.144",
+  "version_code": 144,
+  "manager_version": "0.1.0-alpha.144",
   "notes": [
-    "Fotos e Vídeos: consulta agregada pelo MediaStore sem etapa inicial por pastas; dois tipos separados.",
-    "Busca por nome é aplicada antes da paginação, e seleção total respeita busca e filtros.",
-    "Galerias preservam grade/lista, miniaturas, paginação 96, abertura, seleção e ações de arquivos.",
-    "Ferramentas: diálogo modal compacto com sete atalhos em duas linhas, sem página vazia.",
-    "Limites: mídia indexada e acessível via Android; teste Gradle/Android e inspeção em aparelho pendentes."
+    "Barra de seleção do explorador com botão direto Selecionar todos, sem depender do menu Mais.",
+    "Barra de seleção das galerias de Fotos/Vídeos também mostra Selecionar todos diretamente.",
+    "Galerias unificadas e painel Ferramentas compacto preservados.",
+    "Build Gradle/Android e inspeção visual em dispositivo ainda pendentes."
   ]
 }

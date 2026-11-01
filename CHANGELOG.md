@@ -1,3 +1,11 @@
+## 0.1.0-alpha.144 (2026-10-31)
+
+- Seleção: adicionada a ação **Selecionar todos** diretamente na barra de seleção do explorador de arquivos, sem depender do menu **Mais**.
+- Galerias: Fotos e Vídeos agora também mostram **Selecionar todos** na barra de seleção, além do menu de ações secundárias.
+- Preservado o botão **Mais** para propriedades, favoritos, cancelar seleção e ações extras de arquivos compactados.
+- Mantidas as mudanças recentes de galerias unificadas, painel Ferramentas compacto, API 36 e preparação para Google Play.
+- Validações locais aprovadas; build Android completo e teste visual em aparelho continuam pendentes.
+
 ## 0.1.0-alpha.143 (2026-10-31)
 
 - Fotos/Vídeos: substituída a entrada por pastas por biblioteca unificada de arquivos do MediaStore, separada por tipo, com miniaturas em grade inicialmente e opção de lista.
